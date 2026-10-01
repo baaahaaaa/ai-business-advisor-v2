@@ -1,0 +1,42 @@
+{
+    "model_name": "claim_frequency_xgboost_poisson",
+    "model_version": "1.0.0",
+    "target_definition": "ClaimNb / Exposure",
+    "exposure_strategy": "Exposure used as sample_weight",
+    "output": "expected claim frequency per exposure unit",
+    "expected_count_formula": "predicted_frequency * Exposure",
+    "features": [
+        "VehPower",
+        "VehAge",
+        "DrivAge",
+        "BonusMalus",
+        "log_density",
+        "Area",
+        "VehBrand",
+        "VehGas",
+        "Region"
+    ],
+    "hyperparameters": {
+        "n_estimators": 500,
+        "learning_rate": 0.08,
+        "max_depth": 6,
+        "min_child_weight": 10.0,
+        "subsample": 0.7,
+        "colsample_bytree": 0.9,
+        "reg_alpha": 0.01,
+        "reg_lambda": 10.0
+    },
+    "holdout_metrics": {
+        "model": "xgboost_poisson",
+        "poisson_deviance": 0.3014928110686298,
+        "count_mae": 0.09629423686881065,
+        "observed_frequency": 0.10098924510272797,
+        "predicted_frequency": 0.1006849054521541,
+        "frequency_bias": -0.00030433965057387324,
+        "frequency_bias_pct": -0.3013584766024281,
+        "min_predicted_rate": 0.009200836531817913,
+        "max_predicted_rate": 3.074084520339966
+    },
+    "top_decile_lift": 3.6653321665408813,
+    "artifact": "claim_frequency_xgboost_poisson.joblib"
+}

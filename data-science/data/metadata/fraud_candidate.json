@@ -1,0 +1,23 @@
+{
+    "task": "fraud_classification",
+    "model": "random_forest",
+    "best_parameters": {
+        "n_estimators": 800,
+        "min_samples_split": 5,
+        "min_samples_leaf": 10,
+        "max_features": "log2",
+        "max_depth": 16,
+        "class_weight": null
+    },
+    "calibration": "isotonic",
+    "validation_pr_auc": 0.09038410368422278,
+    "validation_roc_auc": 0.6710019862955114,
+    "validation_brier": 0.05381599102173139,
+    "technical_threshold": 0.08585764735167348,
+    "threshold_policy": "maximum_f1_on_1995_validation",
+    "training_year": 1994,
+    "validation_year": 1995,
+    "test_year": 1996,
+    "test_used": true,
+    "test_evaluation_completed": true
+}

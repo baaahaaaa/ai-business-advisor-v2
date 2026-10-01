@@ -1,0 +1,15 @@
+dataset,problem,decision,transformation,affected_rows
+freMTPL2freq,IDpol stocké en float64,Conversion en identifiant unique,float64 -> int64,678013
+freMTLP2freq,Exposure > 1,Population de modèlisation limitée à 0< Exposure <=1,Exclusion des observations Exposure > 1 ,1224
+freMTPL2freq,ClaimNb > 4 pour quelques observations,Conserver les valeurs,Aucune,9
+freMTPL2freq,VehAge atteint 100,Valeur extreme conservée en absence de preuve d'erreur,Aucune,25
+freMTPL2freq,DrivAge atteint 100,Valeur rare mais non automatiquement supprimée,Aucune,3
+freMTPL2freq,BonusMalus élevé,Conserver car valeur métier potentiellement informative,Aucune,209
+fraud_oracle,Age == 0 alors que AgeOFPolicyHolder = 16 to 17,Considérer Age =0 comme valeur exacte inconnue,0 -> NA,320
+fraud_oracle,MonthClaimed = 0,Valeur calendaire impossible,0 -> NA,1
+fraud_oracle,DayOfWeekClaimed = 0,Valeur calendaire impossible,0 -> NA,1
+vehicle_claim_fraud,"Days_Policy_Accident contient ""none""",Conserver comme catégorie jusqu'à validation sémantique,Aucune,55
+vehicle_claim_fraud,"Days_Policy_Claim contient ""none""",Conserver comme catégorie jusqu'à validation sémantique,Aucune,1
+vehicle_claim_fraud,"PastNumberOfClaims contient ""none""",Conserver comme catégorie jusqu'à validation sémantique,Aucune,4352
+vehicle_claim_fraud,"NumberOfSuppliments contient ""none""",Conserver comme catégorie jusqu'à validation sémantique,Aucune,7047
+fraud_oracle,Nomenclature incohérente pour certaines marques,Normalisation orthographique,"Accura→Acura, Nisson→Nissan, Porche→Porsche, Mecedes→Mercedes",511

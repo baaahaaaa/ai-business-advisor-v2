@@ -1,0 +1,4 @@
+task,problem,split,validation,primary_metric
+Claim Occurrence,Binary classification,80% DEV / 20% TEST stratified,5-fold Stratified CV,PR-AUC
+Claim Frequency,Count / frequency,Same policies as Occurrence,5-fold CV stratified on claim occurrence,Poisson Deviance
+Fraud Detection,Binary classification,1994 Train / 1995 Val / 1996 Test,Temporal holdout,PR-AUC

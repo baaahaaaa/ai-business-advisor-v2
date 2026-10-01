@@ -1,0 +1,35 @@
+{
+    "model_name": "fraud_random_forest_isotonic",
+    "model_version": "1.0.0",
+    "task": "fraud_classification",
+    "target": "FraudFound_P",
+    "training_year": 1994,
+    "validation_year": 1995,
+    "test_year": 1996,
+    "model": "RandomForestClassifier",
+    "calibration": "isotonic",
+    "hyperparameters": {
+        "n_estimators": 800,
+        "min_samples_split": 5,
+        "min_samples_leaf": 10,
+        "max_features": "log2",
+        "max_depth": 16,
+        "class_weight": null
+    },
+    "technical_threshold": 0.08585764735167348,
+    "holdout_metrics": {
+        "prevalence": 0.05216752387950037,
+        "pr_auc": 0.09112694706957003,
+        "roc_auc": 0.6747898242166175,
+        "brier": 0.05107961040941232,
+        "log_loss": 0.2061801467721034,
+        "precision": 0.08870967741935484,
+        "recall": 0.4647887323943662,
+        "f1": 0.1489841986455982,
+        "flagged_rate": 0.2733284349742836,
+        "top_decile_lift": 1.8323322286661141,
+        "top_decile_fraud_share": 0.18309859154929578
+    },
+    "artifact": "fraud_random_forest_isotonic.joblib",
+    "test_used": true
+}

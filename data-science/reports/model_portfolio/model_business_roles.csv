@@ -1,0 +1,4 @@
+task,business_question,model_output,application_role,automatic_decision
+Claim Occurrence,Quelle est la probabilité qu'au moins un sinistre survienne ?,Probability of claim occurrence,Risk assessment,False
+Claim Frequency,Combien de sinistres sont attendus par unité d'exposition ?,Expected claim frequency,Portfolio and expected claims analysis,False
+Fraud Detection,Quels dossiers doivent être priorisés pour investigation ?,Fraud risk probability / ranking,Investigation prioritization,False

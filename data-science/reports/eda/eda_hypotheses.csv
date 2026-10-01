@@ -1,0 +1,8 @@
+dataset,feature,observation,next_step
+freMTPL2freq,DrivAge,Relation non linéaire avec la fréquence,Tester forme brute et modèles non linéaires
+freMTPL2freq,BonusMalus,Association forte avec ClaimNb,Conserver et étudier les valeurs extrêmes
+freMTPL2freq,Density,Distribution très asymétrique,Tester log1p durant feature engineering
+fraud,BasePolicy,Taux de fraude très différent entre catégories,Conserver et encoder
+fraud,Fault,Association forte avec la cible,Vérifier risque de leakage
+fraud,Year,Taux de fraude évolue dans le temps,Étudier split temporel
+fraud,PolicyNumber,Identifiant unique,Exclure probablement du ML

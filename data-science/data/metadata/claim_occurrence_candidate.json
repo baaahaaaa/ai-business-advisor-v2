@@ -1,0 +1,21 @@
+{
+    "task": "claim_occurrence",
+    "model": "xgboost",
+    "best_cv_pr_auc": 0.14359548747868847,
+    "best_parameters": {
+        "model__subsample": 0.9,
+        "model__scale_pos_weight": 5.0,
+        "model__reg_lambda": 5.0,
+        "model__reg_alpha": 0.01,
+        "model__n_estimators": 200,
+        "model__min_child_weight": 1,
+        "model__max_depth": 6,
+        "model__learning_rate": 0.05,
+        "model__colsample_bytree": 0.7
+    },
+    "calibration": "xgb_isotonic",
+    "technical_threshold": 0.10327080885569255,
+    "threshold_policy": "maximum_f1_on_internal_calibration_set",
+    "test_used": true,
+    "test_evaluation_completed": true
+}

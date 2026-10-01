@@ -1,0 +1,52 @@
+{
+    "model_name": "claim_occurrence_xgboost",
+    "model_type": "XGBClassifier",
+    "calibration": "isotonic",
+    "model_version": "1.0.0",
+    "target": "has_claim",
+    "features": [
+        "Exposure",
+        "VehPower",
+        "VehAge",
+        "DrivAge",
+        "BonusMalus",
+        "log_density",
+        "Area",
+        "VehBrand",
+        "VehGas",
+        "Region"
+    ],
+    "technical_threshold": 0.10327080885569255,
+    "hyperparameters": {
+        "subsample": 0.9,
+        "scale_pos_weight": 5.0,
+        "reg_lambda": 5.0,
+        "reg_alpha": 0.01,
+        "n_estimators": 200,
+        "min_child_weight": 1,
+        "max_depth": 6,
+        "learning_rate": 0.05,
+        "colsample_bytree": 0.7
+    },
+    "final_test_metrics": {
+        "model": "XGBoost + Isotonic",
+        "test_prevalence": 0.0502519245260716,
+        "pr_auc": 0.14237899998766518,
+        "roc_auc": 0.7105670505283399,
+        "brier": 0.04562107249815244,
+        "log_loss": 0.18342204618513935,
+        "threshold": 0.10327080885569255,
+        "precision": 0.18626550298576022,
+        "recall": 0.23845927668332842,
+        "f1": 0.20915538362346872,
+        "tn": 121470,
+        "fp": 7086,
+        "fn": 5180,
+        "tp": 1622,
+        "pr_auc_lift_vs_prevalence": 2.833304422277328,
+        "top_decile_lift": 3.074050433122507,
+        "training_time_seconds": 49.425038000015775
+    },
+    "test_policy": "used once after model configuration lock",
+    "artifact": "claim_occurrence_xgb_isotonic.joblib"
+}

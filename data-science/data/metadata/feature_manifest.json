@@ -1,0 +1,136 @@
+{
+    "claim_occurrence": {
+        "target": "has_claim",
+        "numeric_features": [
+            "Exposure",
+            "VehPower",
+            "VehAge",
+            "DrivAge",
+            "BonusMalus",
+            "log_density"
+        ],
+        "categorical_features": [
+            "Area",
+            "VehBrand",
+            "VehGas",
+            "Region"
+        ],
+        "excluded_features": [
+            "IDpol",
+            "ClaimNb"
+        ]
+    },
+    "claim_frequency": {
+        "target": "ClaimNb",
+        "exposure": "Exposure",
+        "numeric_features": [
+            "VehPower",
+            "VehAge",
+            "DrivAge",
+            "BonusMalus",
+            "log_density"
+        ],
+        "categorical_features": [
+            "Area",
+            "VehBrand",
+            "VehGas",
+            "Region"
+        ],
+        "excluded_features": [
+            "IDpol"
+        ]
+    },
+    "fraud_detection": {
+        "target": "FraudFound_P",
+        "continuous_features": [
+            "Age",
+            "Deductible"
+        ],
+        "ordinal_features": [
+            "WeekOfMonth",
+            "WeekOfMonthClaimed",
+            "DriverRating"
+        ],
+        "categorical_features": [
+            "Month",
+            "DayOfWeek",
+            "Make",
+            "AccidentArea",
+            "DayOfWeekClaimed",
+            "MonthClaimed",
+            "Sex",
+            "MaritalStatus",
+            "VehicleCategory",
+            "VehiclePrice",
+            "Days_Policy_Accident",
+            "PastNumberOfClaims",
+            "AgeOfVehicle",
+            "AgeOfPolicyHolder",
+            "AgentType",
+            "NumberOfCars",
+            "BasePolicy"
+        ],
+        "id_features": [
+            "PolicyNumber"
+        ],
+        "potential_leakage_features": [
+            "Fault",
+            "PoliceReportFiled",
+            "WitnessPresent",
+            "NumberOfSuppliments",
+            "Days_Policy_Claim",
+            "AddressChange_Claim"
+        ],
+        "redundant_features": [
+            "PolicyType"
+        ],
+        "split_features": [
+            "Year"
+        ]
+    },
+    "fraud": {
+        "target": "FraudFound_P",
+        "split_column": "Year",
+        "continuous_features": [
+            "Age",
+            "Deductible"
+        ],
+        "ordinal_features": [
+            "WeekOfMonth",
+            "WeekOfMonthClaimed",
+            "DriverRating"
+        ],
+        "categorical_features": [
+            "Month",
+            "DayOfWeek",
+            "Make",
+            "AccidentArea",
+            "DayOfWeekClaimed",
+            "MonthClaimed",
+            "Sex",
+            "MaritalStatus",
+            "VehicleCategory",
+            "VehiclePrice",
+            "PastNumberOfClaims",
+            "AgeOfVehicle",
+            "AgeOfPolicyHolder",
+            "AgentType",
+            "NumberOfCars",
+            "BasePolicy"
+        ],
+        "excluded_features": [
+            "AddressChange_Claim",
+            "Days_Policy_Accident",
+            "Days_Policy_Claim",
+            "Fault",
+            "FraudFound_P",
+            "NumberOfSuppliments",
+            "PoliceReportFiled",
+            "PolicyNumber",
+            "PolicyType",
+            "RepNumber",
+            "WitnessPresent",
+            "Year"
+        ]
+    }
+}

@@ -1,0 +1,4 @@
+task,problem_type,target,model,primary_metric,primary_metric_value,secondary_metric,secondary_metric_value,calibration_metric,calibration_metric_value,base_rate,top_decile_lift,artifact
+Claim Occurrence,Binary Classification,ClaimNb > 0,XGBoost + Isotonic,PR-AUC,0.142379,ROC-AUC,0.710567,Brier,0.045621,0.050252,3.074,claim_occurrence_xgb_isotonic.joblib
+Claim Frequency,Count / Frequency Regression,ClaimNb / Exposure,XGBoost Poisson,Mean Poisson Deviance,0.301493,Count MAE,0.096294,Frequency Bias (%),-0.301358,0.100989,3.665,claim_frequency_xgboost_poisson.joblib
+Fraud Detection,Binary Classification,FraudFound_P,Random Forest + Isotonic,PR-AUC,0.091127,ROC-AUC,0.67479,Brier,0.05108,0.052168,1.832,fraud_random_forest_isotonic.joblib

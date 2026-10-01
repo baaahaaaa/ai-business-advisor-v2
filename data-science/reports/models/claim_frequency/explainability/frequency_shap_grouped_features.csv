@@ -1,0 +1,10 @@
+original_feature,mean_abs_shap_sum
+Region,1.1496978
+VehBrand,0.58491987
+BonusMalus,0.29194263
+Area,0.1776384
+VehAge,0.12703091
+DrivAge,0.092430815
+log_density,0.07756088
+VehPower,0.06031461
+VehGas,0.04755037

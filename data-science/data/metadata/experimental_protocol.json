@@ -1,0 +1,43 @@
+{
+    "random_state": 42,
+    "claim_occurrence": {
+        "test_size": 0.2,
+        "split": "stratified_random",
+        "cv": "StratifiedKFold",
+        "cv_folds": 5,
+        "primary_metric": "average_precision",
+        "secondary_metrics": [
+            "roc_auc",
+            "precision",
+            "recall",
+            "f1",
+            "brier_score"
+        ]
+    },
+    "claim_frequency": {
+        "test_size": 0.2,
+        "split": "same_as_claim_occurrence",
+        "cv": "stratified_on_has_claim",
+        "cv_folds": 5,
+        "primary_metric": "mean_poisson_deviance",
+        "secondary_metrics": [
+            "weighted_mae",
+            "calibration"
+        ]
+    },
+    "fraud_detection": {
+        "split": "temporal",
+        "train_year": 1994,
+        "validation_year": 1995,
+        "test_year": 1996,
+        "primary_metric": "average_precision",
+        "secondary_metrics": [
+            "recall",
+            "precision",
+            "f1",
+            "roc_auc",
+            "brier_score"
+        ],
+        "threshold_selection": "validation_only"
+    }
+}

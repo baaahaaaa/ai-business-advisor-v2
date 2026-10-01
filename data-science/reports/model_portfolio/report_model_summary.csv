@@ -1,0 +1,4 @@
+Module,Final model,Final result,Business output,Key limitation
+Claim Occurrence,XGBoost + Isotonic,PR-AUC = 0.1424,Claim probability,Rare event; threshold is technical
+Claim Frequency,XGBoost Poisson,Poisson Deviance = 0.3015,Frequency + expected claim count,No severity / ClaimAmount
+Fraud Detection,Random Forest + Isotonic,PR-AUC = 0.0911,Investigation priority,Moderate performance and temporal threshold drift

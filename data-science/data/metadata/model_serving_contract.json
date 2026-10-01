@@ -1,0 +1,77 @@
+{
+    "claim_occurrence": {
+        "artifact": "claim_occurrence_xgb_isotonic.joblib",
+        "required_features": [
+            "Exposure",
+            "VehPower",
+            "VehAge",
+            "DrivAge",
+            "BonusMalus",
+            "log_density",
+            "Area",
+            "VehBrand",
+            "VehGas",
+            "Region"
+        ],
+        "outputs": [
+            "claim_probability",
+            "technical_risk_flag"
+        ],
+        "meaning": "Probability that at least one claim occurs during the observed exposure period.",
+        "threshold": 0.10327080885569255
+    },
+    "claim_frequency": {
+        "artifact": "claim_frequency_xgboost_poisson.joblib",
+        "required_model_features": [
+            "VehPower",
+            "VehAge",
+            "DrivAge",
+            "BonusMalus",
+            "log_density",
+            "Area",
+            "VehBrand",
+            "VehGas",
+            "Region"
+        ],
+        "additional_input": [
+            "Exposure"
+        ],
+        "outputs": [
+            "predicted_frequency",
+            "expected_claim_count"
+        ],
+        "formula": "expected_claim_count = predicted_frequency * Exposure"
+    },
+    "fraud_detection": {
+        "artifact": "fraud_random_forest_isotonic.joblib",
+        "required_features": [
+            "Age",
+            "Deductible",
+            "WeekOfMonth",
+            "WeekOfMonthClaimed",
+            "DriverRating",
+            "Month",
+            "DayOfWeek",
+            "Make",
+            "AccidentArea",
+            "DayOfWeekClaimed",
+            "MonthClaimed",
+            "Sex",
+            "MaritalStatus",
+            "VehicleCategory",
+            "VehiclePrice",
+            "PastNumberOfClaims",
+            "AgeOfVehicle",
+            "AgeOfPolicyHolder",
+            "AgentType",
+            "NumberOfCars",
+            "BasePolicy"
+        ],
+        "outputs": [
+            "fraud_probability",
+            "investigation_flag"
+        ],
+        "threshold": 0.08585764735167348,
+        "meaning": "Prioritization score for human fraud investigation. Not an automatic fraud determination."
+    }
+}
