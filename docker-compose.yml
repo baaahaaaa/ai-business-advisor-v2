@@ -1,0 +1,91 @@
+﻿services:
+
+  ml-api:
+    build:
+      context: ./data-science
+      dockerfile: Dockerfile
+
+    image: ai-business-advisor-ml-api:dev
+
+    ports:
+      - "8000:8000"
+
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "python",
+          "-c",
+          "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/health')"
+        ]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
+
+
+  ai-service:
+    build:
+      context: ./ai-service
+      dockerfile: Dockerfile
+
+    image: ai-business-advisor-ai-service:dev
+
+    env_file:
+      - ./ai-service/.env
+
+    ports:
+      - "8100:8100"
+
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "python",
+          "-c",
+          "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8100/health')"
+        ]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+
+    image: ai-business-advisor-backend:dev
+
+    environment:
+      ML_API_BASE_URL: http://ml-api:8000
+      ADVISOR_API_BASE_URL: http://ai-service:8100
+      FRONTEND_ORIGIN: http://localhost:5173
+
+    depends_on:
+      ml-api:
+        condition: service_healthy
+      ai-service:
+        condition: service_healthy
+
+    ports:
+      - "8081:8080"
+
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+
+      args:
+        VITE_API_BASE_URL: http://localhost:8081
+
+    image: ai-business-advisor-frontend:dev
+
+    depends_on:
+      - backend
+
+    ports:
+      - "5173:80"
+

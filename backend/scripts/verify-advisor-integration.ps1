@@ -1,3 +1,12 @@
+﻿param(
+    [string]$BaseUrl = $(if ($env:BACKEND_BASE_URL) {
+        $env:BACKEND_BASE_URL
+    }
+    else {
+        "http://127.0.0.1:8080"
+    })
+)
+
 $ErrorActionPreference = "Stop"
 
 Write-Host ""
@@ -78,7 +87,7 @@ $riskBody = @{
 
 
 $riskResponse = Invoke-RestMethod `
-    -Uri "http://127.0.0.1:8080/api/advisor/risk" `
+    -Uri "$BaseUrl/api/advisor/risk" `
     -Method Post `
     -ContentType "application/json" `
     -Body $riskBody
@@ -152,7 +161,7 @@ $fraudBody = @{
 
 
 $fraudResponse = Invoke-RestMethod `
-    -Uri "http://127.0.0.1:8080/api/advisor/fraud" `
+    -Uri "$BaseUrl/api/advisor/fraud" `
     -Method Post `
     -ContentType "application/json" `
     -Body $fraudBody
@@ -233,3 +242,4 @@ Write-Host ""
 Write-Host "=============================================="
 Write-Host "ALL ADVISOR INTEGRATION TESTS PASSED"
 Write-Host "=============================================="
+

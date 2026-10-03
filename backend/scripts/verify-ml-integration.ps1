@@ -1,7 +1,13 @@
+﻿param(
+    [string]$BaseUrl = $(if ($env:BACKEND_BASE_URL) {
+        $env:BACKEND_BASE_URL
+    }
+    else {
+        "http://127.0.0.1:8080"
+    })
+)
+
 $ErrorActionPreference = "Stop"
-
-$BaseUrl = "http://127.0.0.1:8080"
-
 function Assert-Close {
     param(
         [double]$Actual,
@@ -215,3 +221,4 @@ Write-Host ""
 Write-Host "=============================================="
 Write-Host "ALL ML INTEGRATION TESTS PASSED"
 Write-Host "=============================================="
+
