@@ -1,5 +1,7 @@
 # AI Business Advisor V2
 
+[![CI](https://github.com/baaahaaaa/ai-business-advisor-v2/actions/workflows/ci.yml/badge.svg)](https://github.com/baaahaaaa/ai-business-advisor-v2/actions/workflows/ci.yml)
+
 AI Business Advisor V2 is an end-to-end insurance decision-support platform combining machine learning, explainability, business APIs, a web interface, and a guarded LLM-based AI Advisor.
 
 The system is designed to support human decision-making. Machine-learning models generate quantitative indicators, while the AI Advisor explains those indicators without recalculating model scores or making autonomous insurance decisions.
@@ -18,19 +20,19 @@ The application follows this general pipeline:
 
 ```text
 DATA
-  â†“
+  ↓
 MACHINE LEARNING MODELS
-  â†“
+  ↓
 EVALUATION
-  â†“
+  ↓
 EXPLAINABILITY
-  â†“
+  ↓
 ML INFERENCE API
-  â†“
+  ↓
 SPRING BOOT BUSINESS API
-  â†“
+  ↓
 REACT FRONTEND
-  â†“
+  ↓
 AI ADVISOR
 ```
 
@@ -43,36 +45,36 @@ It does not replace the machine-learning models and does not modify their predic
 ## 2. Global Architecture
 
 ```text
-                        â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
-                        â”‚       Browser        â”‚
-                        â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
-                                   â”‚
-                                   â–¼
-                        â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
-                        â”‚ React + TypeScript   â”‚
-                        â”‚ Nginx                â”‚
-                        â”‚ localhost:5173       â”‚
-                        â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
-                                   â”‚
-                                   â–¼
-                        â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
-                        â”‚ Spring Boot Backend  â”‚
-                        â”‚ localhost:8081       â”‚
-                        â”‚ container:8080       â”‚
-                        â””â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”˜
-                               â”‚        â”‚
-                     â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜        â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
-                     â–¼                            â–¼
-          â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”     â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
-          â”‚ ML Inference API     â”‚     â”‚ AI Advisor Service   â”‚
-          â”‚ FastAPI              â”‚     â”‚ FastAPI              â”‚
-          â”‚ localhost:8000       â”‚     â”‚ localhost:8100       â”‚
-          â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜     â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
-                     â”‚                            â”‚
-          â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¼â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”                â–¼
-          â–¼          â–¼           â–¼          â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
-      Occurrence  Frequency    Fraud         â”‚  OpenAI API  â”‚
-                                             â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
+                        ┌──────────────────────┐
+                        │       Browser        │
+                        └──────────┬───────────┘
+                                   │
+                                   ▼
+                        ┌──────────────────────┐
+                        │ React + TypeScript   │
+                        │ Nginx                │
+                        │ localhost:5173       │
+                        └──────────┬───────────┘
+                                   │
+                                   ▼
+                        ┌──────────────────────┐
+                        │ Spring Boot Backend  │
+                        │ localhost:8081       │
+                        │ container:8080       │
+                        └──────┬────────┬──────┘
+                               │        │
+                     ┌─────────┘        └─────────┐
+                     ▼                            ▼
+          ┌──────────────────────┐     ┌──────────────────────┐
+          │ ML Inference API     │     │ AI Advisor Service   │
+          │ FastAPI              │     │ FastAPI              │
+          │ localhost:8000       │     │ localhost:8100       │
+          └──────────┬───────────┘     └──────────┬───────────┘
+                     │                            │
+          ┌──────────┼───────────┐                ▼
+          ▼          ▼           ▼          ┌──────────────┐
+      Occurrence  Frequency    Fraud         │  OpenAI API  │
+                                             └──────────────┘
 ```
 
 The frontend communicates only with the Spring Boot backend.
@@ -206,7 +208,7 @@ the expected claim count is:
 The relationship is:
 
 ```text
-expectedClaimCount = predictedFrequency Ã— exposure
+expectedClaimCount = predictedFrequency × exposure
 ```
 
 ---
@@ -740,36 +742,36 @@ git lfs pull
 
 ```text
 ai-business-advisor-v2/
-â”‚
-â”œâ”€â”€ ai-service/
-â”‚   â”œâ”€â”€ app/
-â”‚   â”œâ”€â”€ tests/
-â”‚   â”œâ”€â”€ Dockerfile
-â”‚   â””â”€â”€ requirements.txt
-â”‚
-â”œâ”€â”€ backend/
-â”‚   â”œâ”€â”€ src/
-â”‚   â”œâ”€â”€ scripts/
-â”‚   â”œâ”€â”€ Dockerfile
-â”‚   â””â”€â”€ pom.xml
-â”‚
-â”œâ”€â”€ data-science/
-â”‚   â”œâ”€â”€ artifacts/
-â”‚   â”œâ”€â”€ data/
-â”‚   â”œâ”€â”€ inference_api/
-â”‚   â”œâ”€â”€ notebooks/
-â”‚   â”œâ”€â”€ reports/
-â”‚   â”œâ”€â”€ Dockerfile
-â”‚   â”œâ”€â”€ requirements-ml.txt
-â”‚   â””â”€â”€ requirements-inference.txt
-â”‚
-â”œâ”€â”€ frontend/
-â”‚   â”œâ”€â”€ src/
-â”‚   â”œâ”€â”€ Dockerfile
-â”‚   â””â”€â”€ package.json
-â”‚
-â”œâ”€â”€ docker-compose.yml
-â””â”€â”€ README.md
+│
+├── ai-service/
+│   ├── app/
+│   ├── tests/
+│   ├── Dockerfile
+│   └── requirements.txt
+│
+├── backend/
+│   ├── src/
+│   ├── scripts/
+│   ├── Dockerfile
+│   └── pom.xml
+│
+├── data-science/
+│   ├── artifacts/
+│   ├── data/
+│   ├── inference_api/
+│   ├── notebooks/
+│   ├── reports/
+│   ├── Dockerfile
+│   ├── requirements-ml.txt
+│   └── requirements-inference.txt
+│
+├── frontend/
+│   ├── src/
+│   ├── Dockerfile
+│   └── package.json
+│
+├── docker-compose.yml
+└── README.md
 ```
 
 ---
