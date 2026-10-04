@@ -133,13 +133,13 @@ $riskRuntime = Invoke-RestMethod `
     -Uri "http://127.0.0.1:8100/runtime" `
     -Method Get
 
-if ($riskRuntime.lastExecutionMode -ne "fallback") {
+if ($riskRuntime.lastExecutionMode -ne "deterministic-fallback") {
     throw "Risk advisor did not use fallback mode. Mode: $($riskRuntime.lastExecutionMode)"
 }
 
 Write-Host "[PASS] Risk fallback response"
 Write-Host "[PASS] Risk deterministic disclaimer"
-Write-Host "[PASS] Risk execution mode -> fallback"
+Write-Host "[PASS] Risk execution mode -> deterministic-fallback"
 Write-Host ""
 
 # ============================================================
@@ -214,14 +214,14 @@ $fraudRuntime = Invoke-RestMethod `
     -Uri "http://127.0.0.1:8100/runtime" `
     -Method Get
 
-if ($fraudRuntime.lastExecutionMode -ne "fallback") {
+if ($fraudRuntime.lastExecutionMode -ne "deterministic-fallback") {
     throw "Fraud advisor did not use fallback mode. Mode: $($fraudRuntime.lastExecutionMode)"
 }
 
 Write-Host "[PASS] Fraud fallback response"
 Write-Host "[PASS] Fraud deterministic disclaimer"
 Write-Host "[PASS] Fraud response contains no prohibited accusation"
-Write-Host "[PASS] Fraud execution mode -> fallback"
+Write-Host "[PASS] Fraud execution mode -> deterministic-fallback"
 Write-Host ""
 
 Write-Host "=============================================="
