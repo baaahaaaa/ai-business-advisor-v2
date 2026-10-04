@@ -14,10 +14,6 @@ permissions:
   contents: read
   packages: write
 
-env:
-  REGISTRY: ghcr.io
-  IMAGE_NAME: baaahaaaa/ai-business-advisor-v2-ai-service
-
 jobs:
   publish-ai-service-image:
     name: Publish AI Service Image
@@ -35,7 +31,7 @@ jobs:
       - name: Log in to GitHub Container Registry
         uses: docker/login-action@v3
         with:
-          registry: ${{ env.REGISTRY }}
+          registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
