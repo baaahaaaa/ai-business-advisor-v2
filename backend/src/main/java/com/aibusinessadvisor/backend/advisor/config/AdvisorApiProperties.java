@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 public class AdvisorApiProperties {
 
     private String baseUrl;
+    private int requestTimeoutSeconds;
 
 
     public String getBaseUrl() {
@@ -20,5 +21,18 @@ public class AdvisorApiProperties {
             String baseUrl
     ) {
         this.baseUrl = baseUrl;
+    }
+
+
+    public int getRequestTimeoutSeconds() {
+        return requestTimeoutSeconds;
+    }
+
+
+    public void setRequestTimeoutSeconds(
+            int requestTimeoutSeconds
+    ) {
+        this.requestTimeoutSeconds =
+                requestTimeoutSeconds;
     }
 }

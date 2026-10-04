@@ -25,6 +25,7 @@ public class AiAdvisorClient {
     private final HttpClient httpClient;
     private final JsonMapper jsonMapper;
     private final String baseUrl;
+    private final Duration requestTimeout;
 
 
     public AiAdvisorClient(
@@ -37,6 +38,10 @@ public class AiAdvisorClient {
         this.baseUrl = properties
                 .getBaseUrl()
                 .replaceAll("/+$", "");
+
+        this.requestTimeout = Duration.ofSeconds(
+                properties.getRequestTimeoutSeconds()
+        );
 
         this.httpClient = HttpClient
                 .newBuilder()
@@ -84,7 +89,7 @@ public class AiAdvisorClient {
                         )
                 )
                 .version(HttpClient.Version.HTTP_1_1)
-                .timeout(Duration.ofSeconds(30))
+                .timeout(requestTimeout)
                 .header(
                         "Content-Type",
                         "application/json"
