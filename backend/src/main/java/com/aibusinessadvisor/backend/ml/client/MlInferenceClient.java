@@ -28,6 +28,7 @@ public class MlInferenceClient {
     private final HttpClient httpClient;
     private final JsonMapper jsonMapper;
     private final String baseUrl;
+    private final Duration requestTimeout;
 
 
     public MlInferenceClient(
@@ -41,10 +42,14 @@ public class MlInferenceClient {
                 .getBaseUrl()
                 .replaceAll("/+$", "");
 
+        this.requestTimeout = Duration.ofSeconds(
+                properties.getRequestTimeoutSeconds()
+        );
+
         this.httpClient = HttpClient
                 .newBuilder()
                 .version(HttpClient.Version.HTTP_1_1)
-                .connectTimeout(Duration.ofSeconds(5))
+                .connectTimeout(requestTimeout)
                 .build();
     }
 
@@ -59,7 +64,7 @@ public class MlInferenceClient {
                         )
                 )
                 .version(HttpClient.Version.HTTP_1_1)
-                .timeout(Duration.ofSeconds(30))
+                .timeout(requestTimeout)
                 .header(
                         "Accept",
                         "application/json"
@@ -179,7 +184,7 @@ public class MlInferenceClient {
                         )
                 )
                 .version(HttpClient.Version.HTTP_1_1)
-                .timeout(Duration.ofSeconds(30))
+                .timeout(requestTimeout)
                 .header(
                         "Content-Type",
                         "application/json"

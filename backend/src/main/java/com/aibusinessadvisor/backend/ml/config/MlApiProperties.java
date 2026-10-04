@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 public class MlApiProperties {
 
     private String baseUrl;
+    private int requestTimeoutSeconds;
 
 
     public String getBaseUrl() {
@@ -18,5 +19,18 @@ public class MlApiProperties {
 
     public void setBaseUrl(String baseUrl) {
         this.baseUrl = baseUrl;
+    }
+
+
+    public int getRequestTimeoutSeconds() {
+        return requestTimeoutSeconds;
+    }
+
+
+    public void setRequestTimeoutSeconds(
+            int requestTimeoutSeconds
+    ) {
+        this.requestTimeoutSeconds =
+                requestTimeoutSeconds;
     }
 }
