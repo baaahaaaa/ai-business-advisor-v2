@@ -110,6 +110,17 @@ public class SecurityConfig {
                 .authorizeHttpRequests(
                         authorize ->
                                 authorize
+                                        .requestMatchers(
+                                                "/actuator/health",
+                                                "/api/auth/login"
+                                        )
+                                        .permitAll()
+
+                                        .requestMatchers(
+                                                "/api/auth/me"
+                                        )
+                                        .authenticated()
+
                                         .anyRequest()
                                         .permitAll()
                 );
