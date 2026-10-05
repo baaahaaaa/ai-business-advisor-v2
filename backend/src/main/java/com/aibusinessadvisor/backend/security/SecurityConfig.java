@@ -112,17 +112,36 @@ public class SecurityConfig {
                                 authorize
                                         .requestMatchers(
                                                 "/actuator/health",
-                                                "/api/auth/login"
+                                                "/api/auth/login",
+                                                "/error"
                                         )
                                         .permitAll()
+
+                                        .requestMatchers(
+                                                "/api/admin/**"
+                                        )
+                                        .hasRole(
+                                                "ADMIN"
+                                        )
 
                                         .requestMatchers(
                                                 "/api/auth/me"
                                         )
                                         .authenticated()
 
+                                        .requestMatchers(
+                                                "/api/risk/**",
+                                                "/api/fraud/**",
+                                                "/api/advisor/**",
+                                                "/api/ml/**"
+                                        )
+                                        .hasAnyRole(
+                                                "ADMIN",
+                                                "ANALYST"
+                                        )
+
                                         .anyRequest()
-                                        .permitAll()
+                                        .denyAll()
                 );
 
 
