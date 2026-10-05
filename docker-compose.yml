@@ -1,4 +1,27 @@
-﻿services:
+services:
+
+  postgres:
+    image: postgres:17-alpine
+
+    environment:
+      POSTGRES_DB: ai_business_advisor
+      POSTGRES_USER: ai_business_advisor
+      POSTGRES_PASSWORD: ai_business_advisor_dev
+
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "pg_isready -U ai_business_advisor -d ai_business_advisor"
+        ]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 5s
+
 
   ml-api:
     build:
@@ -62,8 +85,13 @@
       ML_API_BASE_URL: http://ml-api:8000
       ADVISOR_API_BASE_URL: http://ai-service:8100
       FRONTEND_ORIGIN: http://localhost:5173
+      DATABASE_URL: jdbc:postgresql://postgres:5432/ai_business_advisor
+      DATABASE_USERNAME: ai_business_advisor
+      DATABASE_PASSWORD: ai_business_advisor_dev
 
     depends_on:
+      postgres:
+        condition: service_healthy
       ml-api:
         condition: service_healthy
       ai-service:
@@ -89,3 +117,5 @@
     ports:
       - "5173:80"
 
+volumes:
+  postgres_data:
