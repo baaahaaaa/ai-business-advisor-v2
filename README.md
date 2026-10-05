@@ -8,6 +8,56 @@ The system is designed to support human decision-making. Machine-learning models
 
 ---
 
+## Live Demo
+
+AI Business Advisor V2 is deployed as a complete cloud stack on Render.
+
+### Public Services
+
+| Service | Public URL |
+|---|---|
+| Frontend | https://ai-business-advisor-v2-frontend-cloud.onrender.com |
+| Spring Boot Backend | https://ai-business-advisor-v2-backend-cloud.onrender.com |
+| ML Inference API | https://ai-business-advisor-v2-ml-api-cloud.onrender.com |
+| AI Advisor | https://ai-business-advisor-v2-ai-service-cloud.onrender.com |
+
+### Cloud Architecture
+
+```text
+Browser
+  |
+  v
+React Static Site
+  |
+  v
+Spring Boot Backend
+  |
+  +--> ML Inference API
+  |      +--> Claim Occurrence
+  |      +--> Claim Frequency
+  |      +--> Fraud Detection
+  |
+  +--> AI Advisor
+         +--> Deterministic fallback
+         +--> OpenAI provider when configured
+```
+
+The browser communicates only with the Spring Boot backend.
+
+The backend orchestrates ML inference and AI Advisor calls.
+
+The current public Render deployment intentionally runs without an OpenAI API key, so the Advisor uses the deterministic fallback mode.
+
+Render Free services can spin down after inactivity. The first request after inactivity can take longer while downstream services wake up.
+
+Deployment milestone:
+
+```text
+v0.5.0-cloud-deployment
+```
+
+---
+
 ## 1. Project Overview
 
 The platform currently addresses three insurance-related analytical tasks:
@@ -127,7 +177,10 @@ The backend is responsible for orchestrating calls to the ML API and the AI Advi
 - Docker Compose
 - Git
 - GitHub
+- GitHub Actions
+- GitHub Container Registry (GHCR)
 - Git LFS
+- Render
 
 ---
 
@@ -850,20 +903,53 @@ Docker Compose orchestration
 End-to-end Docker validation
 ```
 
+### v0.4.0-ci-e2e
+
+```text
+GitHub Actions continuous integration
+Full-stack Docker E2E validation
+Git LFS artifact validation
+Pinned AI service dependencies
+Automated backend, frontend, ML, and AI checks
+```
+
+### v0.5.0-cloud-deployment
+
+```text
+Render cloud deployment
+GHCR image publishing
+Dynamic cloud ports
+Render cold-start tolerance
+Public React frontend
+Public Spring Boot backend
+Public ML inference API
+Public AI Advisor service
+End-to-end browser validation
+```
+
 ---
 
 ## 23. Current Status
 
 ```text
-Frontend       Operational
-Backend        Operational
-ML API         Healthy
-AI Advisor     Healthy
-OpenAI         Validated
-Docker Compose Validated
+Local Frontend       Operational
+Local Backend        Operational
+Local ML API         Healthy
+Local AI Advisor     Healthy
+Docker Compose       Validated
+GitHub CI            Validated
+Docker E2E           Validated
+
+Cloud Frontend       Live
+Cloud Backend        Live
+Cloud ML API         Healthy
+Cloud AI Advisor     Healthy
+Cloud Advisor Mode   Deterministic fallback
 ```
 
-The complete application has been tested end-to-end.
+The complete application has been validated locally, through Docker Compose, in CI, and through the public Render deployment.
+
+The OpenAI-backed Advisor has been validated separately. The public cloud deployment currently uses the deterministic fallback because no OpenAI API key is stored in Render.
 
 ---
 
