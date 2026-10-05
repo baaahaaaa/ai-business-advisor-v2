@@ -6,6 +6,9 @@ import com.aibusinessadvisor.backend.fraud.service.FraudAssessmentService;
 
 import jakarta.validation.Valid;
 
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.jwt.Jwt;
+
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,7 +19,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/fraud")
 public class FraudAssessmentController {
 
-    private final FraudAssessmentService fraudAssessmentService;
+    private final FraudAssessmentService
+            fraudAssessmentService;
 
 
     public FraudAssessmentController(
@@ -33,11 +37,17 @@ public class FraudAssessmentController {
 
             @Valid
             @RequestBody
-            FraudAssessmentRequest request
+            FraudAssessmentRequest request,
+
+            @AuthenticationPrincipal
+            Jwt jwt
 
     ) {
 
         return fraudAssessmentService
-                .assess(request);
+                .assess(
+                        request,
+                        jwt.getSubject()
+                );
     }
 }
