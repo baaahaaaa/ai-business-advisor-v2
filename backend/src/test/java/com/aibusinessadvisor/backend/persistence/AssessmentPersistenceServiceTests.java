@@ -30,7 +30,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 class AssessmentPersistenceServiceTests {
 
     @Autowired
-    private AppUserRepository appUserRepository;
+    private AppUserRepository
+            appUserRepository;
 
     @Autowired
     private AssessmentRecordRepository
@@ -101,7 +102,9 @@ class AssessmentPersistenceServiceTests {
 
         List<AssessmentRecord> records =
                 assessmentRecordRepository
-                        .findAll();
+                        .findAllByCreatedByIdOrderByCreatedAtAsc(
+                                savedUser.getId()
+                        );
 
 
         assertThat(records)
@@ -119,25 +122,51 @@ class AssessmentPersistenceServiceTests {
                         .orElseThrow();
 
 
-        assertThat(risk.getCreatedBy().getId())
-                .isEqualTo(
-                        savedUser.getId()
-                );
+        assertThat(
+                risk.getCreatedBy().getId()
+        ).isEqualTo(
+                savedUser.getId()
+        );
 
-        assertThat(risk.getPrimaryScore())
-                .isEqualTo(
-                        0.4265319009621938
-                );
 
-        assertThat(risk.getPredictedFrequency())
-                .isEqualTo(
-                        0.5954161286354065
-                );
+        assertThat(
+                risk.getPrimaryScore()
+        ).isEqualTo(
+                0.4265319009621938
+        );
 
-        assertThat(risk.getExposure())
-                .isEqualTo(
-                        1.0
-                );
+
+        assertThat(
+                risk.getTechnicalThreshold()
+        ).isEqualTo(
+                0.10327080885569255
+        );
+
+
+        assertThat(
+                risk.isFlagged()
+        ).isTrue();
+
+
+        assertThat(
+                risk.getPredictedFrequency()
+        ).isEqualTo(
+                0.5954161286354065
+        );
+
+
+        assertThat(
+                risk.getExpectedClaimCount()
+        ).isEqualTo(
+                0.5954161286354065
+        );
+
+
+        assertThat(
+                risk.getExposure()
+        ).isEqualTo(
+                1.0
+        );
 
 
         AssessmentRecord fraud =
@@ -151,23 +180,44 @@ class AssessmentPersistenceServiceTests {
                         .orElseThrow();
 
 
-        assertThat(fraud.getCreatedBy().getId())
-                .isEqualTo(
-                        savedUser.getId()
-                );
+        assertThat(
+                fraud.getCreatedBy().getId()
+        ).isEqualTo(
+                savedUser.getId()
+        );
 
-        assertThat(fraud.getPrimaryScore())
-                .isEqualTo(
-                        0.5377003003817469
-                );
 
-        assertThat(fraud.getPredictedFrequency())
-                .isNull();
+        assertThat(
+                fraud.getPrimaryScore()
+        ).isEqualTo(
+                0.5377003003817469
+        );
 
-        assertThat(fraud.getExpectedClaimCount())
-                .isNull();
 
-        assertThat(fraud.getExposure())
-                .isNull();
+        assertThat(
+                fraud.getTechnicalThreshold()
+        ).isEqualTo(
+                0.08585764735167348
+        );
+
+
+        assertThat(
+                fraud.isFlagged()
+        ).isTrue();
+
+
+        assertThat(
+                fraud.getPredictedFrequency()
+        ).isNull();
+
+
+        assertThat(
+                fraud.getExpectedClaimCount()
+        ).isNull();
+
+
+        assertThat(
+                fraud.getExposure()
+        ).isNull();
     }
 }
