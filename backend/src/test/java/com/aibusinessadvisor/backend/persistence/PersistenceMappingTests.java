@@ -24,7 +24,6 @@ class PersistenceMappingTests {
     @Autowired
     private AppUserRepository appUserRepository;
 
-
     @Autowired
     private AssessmentRecordRepository
             assessmentRecordRepository;
@@ -99,13 +98,5 @@ class PersistenceMappingTests {
         ).isEqualTo(
                 savedUser.getId()
         );
-
-        assertThat(
-                savedAssessment.isAdvisorRequested()
-        ).isFalse();
-
-        assertThat(
-                savedAssessment.getAdvisorMode()
-        ).isNull();
     }
 }

@@ -27,7 +27,6 @@ public class AssessmentRecord {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-
     @Enumerated(EnumType.STRING)
     @Column(
             name = "assessment_type",
@@ -35,7 +34,6 @@ public class AssessmentRecord {
             length = 16
     )
     private AssessmentType assessmentType;
-
 
     @ManyToOne(
             fetch = FetchType.LAZY,
@@ -47,7 +45,6 @@ public class AssessmentRecord {
     )
     private AppUser createdBy;
 
-
     @Column(
             name = "created_at",
             nullable = false,
@@ -55,13 +52,11 @@ public class AssessmentRecord {
     )
     private Instant createdAt;
 
-
     @Column(
             name = "primary_score",
             nullable = false
     )
     private double primaryScore;
-
 
     @Column(
             name = "technical_threshold",
@@ -69,35 +64,17 @@ public class AssessmentRecord {
     )
     private double technicalThreshold;
 
-
     @Column(nullable = false)
     private boolean flagged;
-
 
     @Column(name = "predicted_frequency")
     private Double predictedFrequency;
 
-
     @Column(name = "expected_claim_count")
     private Double expectedClaimCount;
 
-
     @Column
     private Double exposure;
-
-
-    @Column(
-            name = "advisor_requested",
-            nullable = false
-    )
-    private boolean advisorRequested;
-
-
-    @Column(
-            name = "advisor_mode",
-            length = 64
-    )
-    private String advisorMode;
 
 
     protected AssessmentRecord() {
@@ -123,9 +100,6 @@ public class AssessmentRecord {
         this.predictedFrequency = predictedFrequency;
         this.expectedClaimCount = expectedClaimCount;
         this.exposure = exposure;
-
-        this.advisorRequested = false;
-        this.advisorMode = null;
     }
 
 
@@ -135,15 +109,6 @@ public class AssessmentRecord {
         if (createdAt == null) {
             createdAt = Instant.now();
         }
-    }
-
-
-    public void markAdvisorExecution(
-            String advisorMode
-    ) {
-
-        this.advisorRequested = true;
-        this.advisorMode = advisorMode;
     }
 
 
@@ -194,15 +159,5 @@ public class AssessmentRecord {
 
     public Double getExposure() {
         return exposure;
-    }
-
-
-    public boolean isAdvisorRequested() {
-        return advisorRequested;
-    }
-
-
-    public String getAdvisorMode() {
-        return advisorMode;
     }
 }
