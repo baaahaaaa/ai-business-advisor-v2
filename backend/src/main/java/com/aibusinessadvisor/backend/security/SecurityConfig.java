@@ -20,6 +20,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
+
 import org.springframework.security.web.SecurityFilterChain;
 
 
@@ -58,7 +60,9 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(
-            HttpSecurity http
+            HttpSecurity http,
+            JwtAuthenticationConverter
+                    jwtAuthenticationConverter
     ) throws Exception {
 
         http
@@ -91,6 +95,16 @@ public class SecurityConfig {
                 .logout(
                         logout ->
                                 logout.disable()
+                )
+
+                .oauth2ResourceServer(
+                        oauth2 ->
+                                oauth2.jwt(
+                                        jwt ->
+                                                jwt.jwtAuthenticationConverter(
+                                                        jwtAuthenticationConverter
+                                                )
+                                )
                 )
 
                 .authorizeHttpRequests(

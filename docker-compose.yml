@@ -88,6 +88,9 @@ services:
       DATABASE_URL: jdbc:postgresql://postgres:5432/ai_business_advisor
       DATABASE_USERNAME: ai_business_advisor
       DATABASE_PASSWORD: ai_business_advisor_dev
+      JWT_SECRET: ai-business-advisor-local-jwt-secret-2026-minimum-32-bytes
+      JWT_EXPIRATION_SECONDS: "3600"
+      JWT_ISSUER: ai-business-advisor
 
     depends_on:
       postgres:
