@@ -1,4 +1,4 @@
-﻿param(
+param(
     [string]$BaseUrl = $(if ($env:BACKEND_BASE_URL) {
         $env:BACKEND_BASE_URL
     }
@@ -24,13 +24,10 @@ $authHeaders = @{
     Authorization = "Bearer $AccessToken"
 }
 
-$PSDefaultParameterValues[
-    "Invoke-RestMethod:Headers"
-] = $authHeaders
-
-$PSDefaultParameterValues[
-    "Invoke-WebRequest:Headers"
-] = $authHeaders
+$script:PSDefaultParameterValues = @{
+    "Invoke-RestMethod:Headers" = $authHeaders
+    "Invoke-WebRequest:Headers" = $authHeaders
+}
 function Assert-Close {
 
     param(

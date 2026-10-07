@@ -24,13 +24,10 @@ $authHeaders = @{
     Authorization = "Bearer $AccessToken"
 }
 
-$PSDefaultParameterValues[
-    "Invoke-RestMethod:Headers"
-] = $authHeaders
-
-$PSDefaultParameterValues[
-    "Invoke-WebRequest:Headers"
-] = $authHeaders
+$script:PSDefaultParameterValues = @{
+    "Invoke-RestMethod:Headers" = $authHeaders
+    "Invoke-WebRequest:Headers" = $authHeaders
+}
 
 function Assert-Contains {
     param(
