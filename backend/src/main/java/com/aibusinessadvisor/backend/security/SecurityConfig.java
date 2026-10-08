@@ -133,7 +133,8 @@ public class SecurityConfig {
                                                 "/api/risk/**",
                                                 "/api/fraud/**",
                                                 "/api/advisor/**",
-                                                "/api/ml/**"
+                                                "/api/ml/**",
+                                                "/api/history/**"
                                         )
                                         .hasAnyRole(
                                                 "ADMIN",

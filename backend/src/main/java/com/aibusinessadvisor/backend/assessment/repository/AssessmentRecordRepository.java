@@ -17,4 +17,9 @@ public interface AssessmentRecordRepository
             findAllByCreatedByIdOrderByCreatedAtAsc(
                     UUID createdById
             );
+
+    List<AssessmentRecord>
+            findAllByCreatedByIdOrderByCreatedAtDesc(
+                    UUID createdById
+            );
 }
