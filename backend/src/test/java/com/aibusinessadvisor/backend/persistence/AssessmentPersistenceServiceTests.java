@@ -107,6 +107,30 @@ class AssessmentPersistenceServiceTests {
                         );
 
 
+        System.out.println(
+                "===== ASSESSMENT RECORDS ====="
+        );
+
+        for (AssessmentRecord record : records) {
+
+            System.out.println(
+                    "id=" + record.getId()
+                            + " | type=" + record.getAssessmentType()
+                            + " | score=" + record.getPrimaryScore()
+                            + " | createdBy="
+                            + record.getCreatedBy().getId()
+                            + " | createdAt="
+                            + record.getCreatedAt()
+            );
+        }
+
+        System.out.println(
+                "===== TOTAL = "
+                        + records.size()
+                        + " ====="
+        );
+
+
         assertThat(records)
                 .hasSize(2);
 
