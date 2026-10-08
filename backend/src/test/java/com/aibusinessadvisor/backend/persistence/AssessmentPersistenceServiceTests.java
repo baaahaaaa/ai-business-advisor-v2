@@ -47,7 +47,7 @@ class AssessmentPersistenceServiceTests {
 
         AppUser user =
                 new AppUser(
-                        "assessment.persistence@ai-business-advisor.local",
+                        "assessment.persistence+" + java.util.UUID.randomUUID() + "@ai-business-advisor.local",
                         "test-password-hash",
                         "Assessment",
                         "Persistence",
