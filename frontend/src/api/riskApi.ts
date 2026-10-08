@@ -23,7 +23,8 @@ export interface InsuranceRiskAssessmentResponse {
 }
 
 export async function assessInsuranceRisk(
-  request: InsuranceRiskRequest
+  request: InsuranceRiskRequest,
+  accessToken: string
 ): Promise<InsuranceRiskAssessmentResponse> {
 
   const response = await fetch(
@@ -32,6 +33,7 @@ export async function assessInsuranceRisk(
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken}`,
       },
       body: JSON.stringify(request),
     }
