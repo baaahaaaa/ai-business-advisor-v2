@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - master
+      - feature/auth-admin-dashboard
 
   pull_request:
     branches:
