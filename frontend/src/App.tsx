@@ -9,8 +9,11 @@ import LoginPage from "./pages/LoginPage";
 import RiskAssessmentPage from "./pages/RiskAssessmentPage";
 import FraudAssessmentPage from "./pages/FraudAssessmentPage";
 import AssessmentHistoryPage from "./pages/AssessmentHistoryPage";
+import AdminDashboardPage from "./pages/AdminDashboardPage";
+import AdminUsersPage from "./pages/AdminUsersPage";
+import AdminAssessmentsPage from "./pages/AdminAssessmentsPage";
 
-type Screen = "risk" | "fraud" | "history";
+type Screen = "risk" | "fraud" | "history" | "admin" | "users" | "admin-assessments";
 
 function App() {
   const { user, isAuthenticated, signOut } = useAuth();
@@ -72,6 +75,45 @@ function App() {
           >
             Assessment History
           </button>
+          {user.role === "ADMIN" && (
+            <>
+              <button
+                type="button"
+                className={
+                  screen === "admin"
+                    ? "navigation-tab active"
+                    : "navigation-tab"
+                }
+                onClick={() => setScreen("admin")}
+              >
+                Admin Dashboard
+              </button>
+
+              <button
+                type="button"
+                className={
+                  screen === "users"
+                    ? "navigation-tab active"
+                    : "navigation-tab"
+                }
+                onClick={() => setScreen("users")}
+              >
+                Manage Users
+              </button>
+
+              <button
+                type="button"
+                className={
+                  screen === "admin-assessments"
+                    ? "navigation-tab active"
+                    : "navigation-tab"
+                }
+                onClick={() => setScreen("admin-assessments")}
+              >
+                All Assessments
+              </button>
+            </>
+          )}
         </nav>
 
         <div className="navigation-account">
@@ -97,8 +139,16 @@ function App() {
         <RiskAssessmentPage />
       ) : screen === "fraud" ? (
         <FraudAssessmentPage />
-      ) : (
+      ) : screen === "history" ? (
         <AssessmentHistoryPage />
+      ) : screen === "admin" && user.role === "ADMIN" ? (
+        <AdminDashboardPage />
+      ) : screen === "users" && user.role === "ADMIN" ? (
+        <AdminUsersPage />
+      ) : screen === "admin-assessments" && user.role === "ADMIN" ? (
+        <AdminAssessmentsPage />
+      ) : (
+        <RiskAssessmentPage />
       )}
     </>
   );
