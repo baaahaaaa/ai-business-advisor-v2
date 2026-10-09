@@ -7,6 +7,10 @@ import org.springframework.context.annotation.Configuration;
 
 import org.springframework.security.oauth2.jose.jws.MacAlgorithm;
 
+import com.aibusinessadvisor.backend.user.repository.AppUserRepository;
+
+import org.springframework.security.oauth2.core.DelegatingOAuth2TokenValidator;
+import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.security.oauth2.jwt.JwtEncoder;
 import org.springframework.security.oauth2.jwt.JwtValidators;
@@ -72,7 +76,8 @@ public class JwtConfig {
     public JwtDecoder jwtDecoder(
             SecretKey jwtSecretKey,
             @Value("${app.jwt.issuer}")
-            String issuer
+            String issuer,
+            AppUserRepository appUserRepository
     ) {
 
         NimbusJwtDecoder decoder =
@@ -87,10 +92,10 @@ public class JwtConfig {
 
 
         decoder.setJwtValidator(
-                JwtValidators
-                        .createDefaultWithIssuer(
-                                issuer
-                        )
+                new DelegatingOAuth2TokenValidator<Jwt>(
+                        JwtValidators.createDefaultWithIssuer(issuer),
+                        new JwtAccountStatusValidator(appUserRepository)
+                )
         );
 
 
