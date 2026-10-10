@@ -94,6 +94,44 @@ Before any frontend recovery:
 The project's generic Vite fallback configuration
 does not by itself prove the effective local API URL.
 
+### Validated local Vite recovery (2026-10-10)
+
+The frontend runs as a local Node.js/Vite process.
+
+During recovery, npm 11 did not forward the supplied
+host and port arguments correctly to Vite.
+
+The validated frontend startup command is:
+
+```powershell
+Set-Location 'C:\Users\user\ai-business-advisor-v2\frontend'
+
+$env:VITE_API_BASE_URL = 'http://127.0.0.1:8082'
+
+node .\node_modules\vite\bin\vite.js --host '::1' --port 5173 --strictPort
+```
+
+Validated Vite version: 8.3.1.
+
+Validated local URL:
+
+http://[::1]:5173/
+
+Result:
+
+- Vite started successfully.
+- Frontend returned HTTP 200.
+- VITE_API_BASE_URL explicitly targeted the Phase 9 JWT backend.
+- No Docker restart was required.
+
+Operational notes:
+
+- Keep the PowerShell terminal open while Vite is running.
+- Do not start a second frontend on the same port.
+- Do not switch the frontend to the Compose backend on port 8081.
+- HTTP 200 does not prove complete JWT authentication.
+- A complete browser authentication test remains pending.
+
 ## 7. PostgreSQL backup
 
 Existing Phase 9 backup:
@@ -109,10 +147,30 @@ Current validation:
 - PostgreSQL volume exists.
 - PostgreSQL health is healthy.
 
-Not yet validated:
+Validated isolated restoration (2026-10-10):
 
-- Successful database restoration.
-- Compatibility with the current live database state.
+- PostgreSQL 17 temporary instance used.
+- Backup restored successfully using pg_restore.
+- 3 application tables restored.
+- 11 indexes restored.
+- 7 constraints restored.
+- All 3 restored tables contained data.
+- 36 total rows restored and readable.
+- Temporary container had no network connectivity.
+- No ports were published by the temporary container.
+- No persistent Docker volumes were mounted in the sandbox.
+- Temporary restore container removed successfully.
+- Follow-up confirmed temporary container absence.
+- Main PostgreSQL remained healthy.
+- Main PostgreSQL volume was not mounted in the sandbox.
+- Original backup SHA256 remained unchanged.
+- ML notebook and Git commit remained unchanged.
+
+Still pending:
+
+- Confirmation that this backup contains all current live data.
+- Complete application recovery rehearsal.
+- Security-reviewed backend rollback rehearsal.
 
 A restore rehearsal must use an isolated environment.
 Never restore into the live V2 database without approval.
@@ -167,8 +225,8 @@ Preserve its existing MySQL and MongoDB volumes.
 
 GitHub CI: SUCCESS.
 GitHub Docker E2E: SUCCESS.
-Local health checks: SUCCESS.
-PostgreSQL restore rehearsal: PENDING.
+Local health checks: SUCCESS (frontend recovered; API health checked separately).
+PostgreSQL restore rehearsal: SUCCESS (isolated PostgreSQL 17, 2026-10-10).
 Manual recovery rehearsal: PENDING.
 Rollback rehearsal: PENDING.
 
