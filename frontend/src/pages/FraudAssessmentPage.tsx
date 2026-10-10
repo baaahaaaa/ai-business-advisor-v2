@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "../App.css";
+import { useAuth } from "../auth/useAuth";
 
 import {
   assessFraud,
@@ -39,6 +40,8 @@ const initialForm: FraudAssessmentRequest = {
 
 
 function FraudAssessmentPage() {
+
+  const { accessToken } = useAuth();
 
   const [form, setForm] =
     useState<FraudAssessmentRequest>(initialForm);
@@ -102,8 +105,12 @@ function FraudAssessmentPage() {
 
     try {
 
+      if (!accessToken) {
+        throw new Error("Session expired. Sign in again.");
+      }
+
       const response =
-        await assessFraud(form);
+        await assessFraud(form, accessToken);
 
       setResult(response);
 
@@ -134,6 +141,10 @@ function FraudAssessmentPage() {
 
     try {
 
+      if (!accessToken) {
+        throw new Error("Session expired. Sign in again.");
+      }
+
       const response =
         await explainFraud({
           fraudProbability:
@@ -144,7 +155,7 @@ function FraudAssessmentPage() {
 
           investigationFlag:
             result.investigationFlag,
-        });
+        }, accessToken);
 
       setAdvisorResult(response);
 
@@ -178,7 +189,7 @@ function FraudAssessmentPage() {
 
 
   return (
-    <div className="app-shell">
+    <div className="app-shell fraud-assessment-page">
 
       <header className="topbar">
 

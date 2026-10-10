@@ -4,10 +4,30 @@ param(
     }
     else {
         "http://127.0.0.1:8080"
+    }),
+
+    [string]$AccessToken = $(if ($env:BACKEND_ACCESS_TOKEN) {
+        $env:BACKEND_ACCESS_TOKEN
+    }
+    else {
+        ""
     })
 )
 
 $ErrorActionPreference = "Stop"
+
+if ([string]::IsNullOrWhiteSpace($AccessToken)) {
+    throw "AccessToken is required. Provide -AccessToken or BACKEND_ACCESS_TOKEN."
+}
+
+$authHeaders = @{
+    Authorization = "Bearer $AccessToken"
+}
+
+$script:PSDefaultParameterValues = @{
+    "Invoke-RestMethod:Headers" = $authHeaders
+    "Invoke-WebRequest:Headers" = $authHeaders
+}
 
 function Assert-Contains {
     param(
