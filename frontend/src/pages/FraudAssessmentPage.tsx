@@ -189,7 +189,7 @@ function FraudAssessmentPage() {
 
 
   return (
-    <div className="app-shell">
+    <div className="app-shell fraud-assessment-page">
 
       <header className="topbar">
 

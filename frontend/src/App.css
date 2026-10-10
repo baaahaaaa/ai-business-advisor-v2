@@ -583,3 +583,1373 @@ select:focus {
 .advisor-error span {
   font-size: 0.82rem;
 }
+
+
+/* ==================================================
+   PHASE 10.5.B.1 - MODERN SIDEBAR
+   CSS ONLY - NO REACT LOGIC CHANGES
+   ================================================== */
+
+@media (min-width: 1051px) {
+
+  #root:has(> .app-navigation) {
+    display: grid;
+    grid-template-columns: 272px minmax(0, 1fr);
+    align-items: start;
+    min-height: 100vh;
+  }
+
+  #root:has(> .app-navigation) > .app-navigation {
+    grid-column: 1;
+    grid-row: 1;
+
+    position: sticky;
+    top: 0;
+    align-self: start;
+
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+
+    width: 100%;
+    height: 100vh;
+    margin: 0;
+    padding: 32px 18px 24px;
+    gap: 28px;
+
+    overflow-y: auto;
+
+    border: none;
+    border-radius: 0;
+
+    background:
+      radial-gradient(
+        circle at 20% 15%,
+        rgba(59, 130, 246, 0.17),
+        transparent 46%
+      ),
+      linear-gradient(160deg, #111d34, #17243c);
+
+    box-shadow: none;
+  }
+
+  #root:has(> .app-navigation) > .app-shell {
+    grid-column: 2;
+    grid-row: 1;
+
+    width: 100%;
+    max-width: 1550px;
+    min-width: 0;
+    margin: 0 auto;
+    padding: 36px clamp(22px, 3vw, 52px);
+  }
+
+  #root:has(> .app-navigation)
+  .navigation-brand {
+    padding: 14px 10px 25px;
+    border-bottom: 1px solid rgba(255,255,255,.10);
+  }
+
+  #root:has(> .app-navigation)
+  .navigation-brand strong {
+    font-size: 17px;
+    color: white;
+    letter-spacing: -.4px;
+  }
+
+  #root:has(> .app-navigation)
+  .navigation-brand span {
+    margin-top: 5px;
+    color: #9eb0cc;
+    font-size: 11px;
+  }
+
+  #root:has(> .app-navigation)
+  .navigation-tabs {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+
+    flex: 1;
+    gap: 8px;
+
+    padding: 0;
+    border-radius: 0;
+    background: transparent;
+  }
+
+  #root:has(> .app-navigation)
+  .navigation-tabs::before {
+    content: 'WORKSPACE';
+    margin: 2px 12px 12px;
+
+    color: #7f97bd;
+    font-size: 10px;
+    font-weight: 900;
+    letter-spacing: 2px;
+  }
+
+  #root:has(> .app-navigation)
+  .navigation-tab {
+    min-height: 45px;
+    width: 100%;
+
+    padding: 13px 15px;
+    border: 1px solid transparent;
+    border-radius: 11px;
+
+    background: transparent;
+    color: #adbed8;
+
+    font-size: 13px;
+    font-weight: 700;
+    text-align: left;
+
+    transition:
+      background .18s ease,
+      border-color .18s ease,
+      color .18s ease;
+  }
+
+  #root:has(> .app-navigation)
+  .navigation-tab:hover {
+    color: #fff;
+    background: rgba(255,255,255,.075);
+  }
+
+  #root:has(> .app-navigation)
+  .navigation-tab.active {
+    color: white;
+    background: linear-gradient(
+      105deg,
+      rgba(43, 107, 235, .52),
+      rgba(32, 126, 197, .22)
+    );
+    border-color: rgba(127, 171, 255, .18);
+    box-shadow: inset 3px 0 0 #60a5fa;
+  }
+
+  #root:has(> .app-navigation)
+  .navigation-account {
+    margin-top: auto;
+    padding: 20px 10px 0;
+
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 16px;
+
+    border-top: 1px solid rgba(255,255,255,.10);
+  }
+
+  #root:has(> .app-navigation)
+  .navigation-user {
+    align-items: flex-start;
+    gap: 5px;
+    color: white;
+    font-size: 13px;
+  }
+
+  #root:has(> .app-navigation)
+  .navigation-user small {
+    color: #91a7c7;
+    font-size: 11px;
+    letter-spacing: 1px;
+    font-weight: 700;
+  }
+
+  #root:has(> .app-navigation)
+  .logout-button {
+    width: 100%;
+    min-height: 43px;
+
+    padding: 11px 15px;
+    border: 1px solid rgba(255,255,255,.14);
+    border-radius: 10px;
+
+    background: rgba(255,255,255,.06);
+    color: #d6e3f7;
+    text-align: center;
+  }
+
+  #root:has(> .app-navigation)
+  .logout-button:hover {
+    color: white;
+    background: rgba(255,255,255,.12);
+  }
+}
+
+/* TABLET AND MOBILE */
+
+@media (max-width: 1050px) {
+
+  #root:has(> .app-navigation) {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+
+  #root:has(> .app-navigation) > .app-navigation {
+    display: grid;
+    grid-template-columns: minmax(0,1fr) auto;
+    align-items: center;
+    gap: 16px;
+
+    position: relative;
+
+    width: 100%;
+    margin: 0;
+    padding: 17px 22px;
+
+    border: none;
+    border-radius: 0;
+
+    background: #132039;
+    box-shadow: none;
+  }
+
+  #root:has(> .app-navigation)
+  .navigation-brand strong {
+    color: white;
+  }
+
+  #root:has(> .app-navigation)
+  .navigation-brand span {
+    color: #9fb0ca;
+  }
+
+  #root:has(> .app-navigation)
+  .navigation-tabs {
+    grid-column: 1 / -1;
+    grid-row: 2;
+
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+
+    min-width: 0;
+    width: 100%;
+    gap: 8px;
+
+    padding: 5px 0;
+    overflow-x: auto;
+
+    background: transparent;
+    border-radius: 0;
+  }
+
+  #root:has(> .app-navigation)
+  .navigation-tab {
+    flex-shrink: 0;
+    white-space: nowrap;
+
+    color: #b8c8df;
+    background: rgba(255,255,255,.04);
+  }
+
+  #root:has(> .app-navigation)
+  .navigation-tab.active {
+    color: white;
+    background: #2862ca;
+  }
+
+  #root:has(> .app-navigation)
+  .navigation-account {
+    grid-column: 2;
+    grid-row: 1;
+
+    margin: 0;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  #root:has(> .app-navigation)
+  .navigation-user {
+    color: white;
+  }
+
+  #root:has(> .app-navigation)
+  .navigation-user small {
+    color: #9fb0ca;
+  }
+
+  #root:has(> .app-navigation)
+  .logout-button {
+    background: rgba(255,255,255,.09);
+    color: white;
+    border-color: rgba(255,255,255,.15);
+  }
+
+  #root:has(> .app-navigation) > .app-shell {
+    width: 100%;
+    max-width: 1500px;
+    margin: 0 auto;
+    padding: 30px 24px;
+  }
+}
+
+@media (max-width: 600px) {
+
+  #root:has(> .app-navigation) > .app-navigation {
+    padding: 15px;
+  }
+
+  #root:has(> .app-navigation)
+  .navigation-brand span,
+  #root:has(> .app-navigation)
+  .navigation-user {
+    display: none;
+  }
+
+  #root:has(> .app-navigation)
+  .navigation-tab {
+    padding: 10px 12px;
+    font-size: 12px;
+  }
+
+  #root:has(> .app-navigation) > .app-shell {
+    padding: 22px 14px;
+  }
+}
+
+/* ==================================================
+   END PHASE 10.5.B.1
+   ================================================== */
+
+/* ==================================================
+   PHASE 10.5.C.1 - MODERN RISK ASSESSMENT
+   SCOPED PRESENTATION ONLY
+   ================================================== */
+
+.risk-assessment-page {
+  --risk-navy: #14213a;
+  --risk-blue: #2563eb;
+
+  width: 100%;
+  max-width: none;
+  min-width: 0;
+}
+
+/* HEADER */
+
+.risk-assessment-page .topbar {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+
+  align-items: center;
+  gap: 24px;
+  margin-bottom: 28px;
+  padding: 32px 36px;
+
+  border: 1px solid rgba(124,165,230,.18);
+  border-radius: 24px;
+
+  background:
+    radial-gradient(
+      circle at 90% 15%,
+      rgba(59,130,246,.22),
+      transparent 42%
+    ),
+    linear-gradient(115deg,#14213a,#20395f);
+
+  box-shadow: 0 18px 40px rgba(19,38,70,.12);
+}
+
+.risk-assessment-page .topbar .eyebrow {
+  color: #91c7ff;
+  font-size: 11px;
+  letter-spacing: .18em;
+}
+
+.risk-assessment-page .topbar h1 {
+  color: white;
+  font-size: clamp(30px,3.6vw,46px);
+  letter-spacing: -.045em;
+  line-height: 1.15;
+}
+
+.risk-assessment-page .topbar .subtitle {
+  color: #b8c9e0;
+  max-width: 620px;
+  font-size: 14px;
+  line-height: 1.75;
+}
+
+.risk-assessment-page .status-badge {
+  flex-shrink: 0;
+
+  padding: 12px 16px;
+  border: 1px solid rgba(255,255,255,.18);
+  border-radius: 999px;
+
+  background: rgba(255,255,255,.10);
+  color: #e3efff;
+
+  font-size: 12px;
+  font-weight: 800;
+}
+
+/* MAIN GRID */
+
+.risk-assessment-page .main-grid {
+  display: grid;
+  grid-template-columns:
+    minmax(0,1.05fr)
+    minmax(0,.95fr);
+
+  align-items: start;
+  gap: 22px;
+}
+
+.risk-assessment-page .panel {
+  min-width: 0;
+  padding: 28px;
+
+  border: 1px solid #e0e8f3;
+  border-radius: 22px;
+  background: white;
+
+  box-shadow: 0 10px 30px rgba(15,23,42,.045);
+}
+
+.risk-assessment-page .panel-heading {
+  align-items: center;
+  gap: 16px;
+  padding-bottom: 22px;
+
+  border-bottom: 1px solid #edf2f8;
+}
+
+.risk-assessment-page .panel-heading .section-label {
+  color: #2563eb;
+  font-size: 10px;
+  letter-spacing: .16em;
+}
+
+.risk-assessment-page .panel-heading h2 {
+  color: #14213a;
+  font-size: 21px;
+  letter-spacing: -.035em;
+  line-height: 1.35;
+}
+
+.risk-assessment-page .panel-heading .secondary-button {
+  flex-shrink: 0;
+
+  padding: 10px 16px;
+  border: 1px solid #d4dfed;
+  border-radius: 10px;
+
+  background: #f8fbff;
+  color: #334155;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.risk-assessment-page .panel-heading .secondary-button:hover {
+  background: #eff6ff;
+  color: #1d4ed8;
+}
+
+/* INPUT FORM */
+
+.risk-assessment-page .risk-form {
+  padding-top: 25px;
+}
+
+.risk-assessment-page .form-grid {
+  display: grid;
+  grid-template-columns: repeat(2,minmax(0,1fr));
+  gap: 19px 16px;
+}
+
+.risk-assessment-page .form-grid label {
+  min-width: 0;
+  color: #475569;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.risk-assessment-page .form-grid input,
+.risk-assessment-page .form-grid select {
+  width: 100%;
+  min-width: 0;
+  min-height: 49px;
+
+  padding: 11px 13px;
+  border: 1px solid #d4dfed;
+  border-radius: 11px;
+
+  background: #fbfdff;
+  color: #14213a;
+
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.risk-assessment-page .form-grid input:focus,
+.risk-assessment-page .form-grid select:focus {
+  border-color: #3b82f6;
+  background: white;
+  box-shadow: 0 0 0 3px rgba(59,130,246,.12);
+}
+
+.risk-assessment-page .primary-button {
+  min-height: 54px;
+  margin-top: 27px;
+
+  border: none;
+  border-radius: 12px;
+
+  background: linear-gradient(
+    110deg,
+    #3265e8,
+    #17a1e7
+  );
+
+  color: white;
+  font-size: 14px;
+  font-weight: 900;
+
+  box-shadow: 0 12px 25px rgba(37,99,235,.20);
+}
+
+.risk-assessment-page .primary-button:hover:not(:disabled) {
+  box-shadow: 0 16px 28px rgba(37,99,235,.26);
+}
+
+/* RESULTS PANEL */
+
+.risk-assessment-page .results-panel {
+  min-height: 620px;
+}
+
+.risk-assessment-page .empty-state {
+  min-height: 410px;
+  padding: 20px;
+}
+
+.risk-assessment-page .empty-icon {
+  width: 76px;
+  height: 76px;
+
+  border-radius: 22px;
+
+  background: linear-gradient(
+    145deg,
+    #eff6ff,
+    #dbeafe
+  );
+
+  color: #2563eb;
+  font-size: 22px;
+  font-weight: 900;
+}
+
+.risk-assessment-page .empty-state h3 {
+  color: #14213a;
+  font-size: 20px;
+  letter-spacing: -.03em;
+}
+
+.risk-assessment-page .empty-state p {
+  max-width: 350px;
+  color: #64748b;
+  font-size: 13px;
+  line-height: 1.75;
+}
+
+/* MODEL METRICS */
+
+.risk-assessment-page .results-content {
+  gap: 20px;
+  padding-top: 25px;
+}
+
+.risk-assessment-page .metric-card {
+  min-width: 0;
+  padding: 23px;
+
+  border: 1px solid #e0e8f3;
+  border-radius: 16px;
+  background: #fbfdff;
+}
+
+.risk-assessment-page .metric-card p {
+  margin-bottom: 13px;
+  color: #64748b;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.risk-assessment-page .metric-card strong {
+  color: #14213a;
+  font-size: clamp(22px,2.5vw,30px);
+  font-weight: 900;
+  letter-spacing: -.04em;
+  font-variant-numeric: tabular-nums;
+  overflow-wrap: anywhere;
+}
+
+.risk-assessment-page .metric-card span {
+  color: #8795a9;
+  font-size: 12px;
+  line-height: 1.65;
+}
+
+.risk-assessment-page .primary-metric {
+  padding: 26px;
+
+  border: 1px solid #bfdbfe;
+  border-radius: 18px;
+
+  background: linear-gradient(
+    125deg,
+    #eff6ff,
+    #f8fbff
+  );
+}
+
+.risk-assessment-page .primary-metric strong {
+  color: #1d4ed8;
+  font-size: clamp(38px,4vw,55px);
+}
+
+.risk-assessment-page .metric-grid {
+  display: grid;
+  grid-template-columns: repeat(2,minmax(0,1fr));
+  gap: 14px;
+}
+
+/* DECISION INDICATORS */
+
+.risk-assessment-page .decision-card {
+  gap: 16px;
+  padding: 21px;
+
+  border-radius: 15px;
+}
+
+.risk-assessment-page .decision-card strong {
+  display: block;
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+.risk-assessment-page .decision-value {
+  font-size: 18px;
+  font-weight: 900;
+  font-variant-numeric: tabular-nums;
+}
+
+.risk-assessment-page .model-note {
+  padding: 20px;
+  border: 1px solid #e2eaf5;
+  border-radius: 15px;
+
+  background: #f8fafc;
+}
+
+.risk-assessment-page .model-note strong {
+  color: #14213a;
+  font-size: 13px;
+}
+
+.risk-assessment-page .model-note p {
+  color: #64748b;
+  font-size: 12px;
+  line-height: 1.75;
+}
+
+/* AI ADVISOR */
+
+.risk-assessment-page .advisor-section {
+  padding-top: 25px;
+  border-top: 1px solid #edf2f8;
+}
+
+.risk-assessment-page .advisor-heading .section-label {
+  color: #2563eb;
+  font-size: 10px;
+  letter-spacing: .16em;
+}
+
+.risk-assessment-page .advisor-heading h3 {
+  color: #14213a;
+  font-size: 19px;
+  letter-spacing: -.035em;
+}
+
+.risk-assessment-page .advisor-button {
+  min-height: 51px;
+
+  border: 1px solid #bfdbfe;
+  border-radius: 12px;
+
+  background: #eff6ff;
+  color: #1d4ed8;
+
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.risk-assessment-page .advisor-button:hover:not(:disabled) {
+  background: #dbeafe;
+}
+
+.risk-assessment-page .advisor-card {
+  padding: 24px;
+
+  border: 1px solid #cfe0f8;
+  border-radius: 17px;
+
+  background: linear-gradient(
+    145deg,
+    #f5f9ff,
+    #ffffff
+  );
+}
+
+.risk-assessment-page .advisor-card h3 {
+  color: #163764;
+  font-size: 19px;
+}
+
+.risk-assessment-page .advisor-summary {
+  color: #475569;
+  font-size: 13px;
+  line-height: 1.8;
+}
+
+.risk-assessment-page .advisor-card li {
+  color: #334155;
+  font-size: 13px;
+  line-height: 1.75;
+}
+
+.risk-assessment-page .advisor-disclaimer {
+  padding: 17px;
+
+  border-left: 3px solid #2563eb;
+  border-radius: 11px;
+
+  background: #eff6ff;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 1250px) {
+  .risk-assessment-page .main-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .risk-assessment-page .results-panel {
+    min-height: 0;
+  }
+
+  .risk-assessment-page .empty-state {
+    min-height: 290px;
+  }
+}
+
+@media (max-width: 650px) {
+  .risk-assessment-page .topbar {
+    flex-direction: column;
+    align-items: stretch;
+
+    padding: 27px 22px;
+    border-radius: 20px;
+  }
+
+  .risk-assessment-page .topbar .status-badge {
+    align-self: flex-start;
+  }
+
+  .risk-assessment-page .panel {
+    padding: 20px;
+  }
+
+  .risk-assessment-page .form-grid,
+  .risk-assessment-page .metric-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .risk-assessment-page .panel-heading h2 {
+    font-size: 18px;
+  }
+
+  .risk-assessment-page .primary-metric strong {
+    font-size: 38px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .risk-assessment-page .primary-button,
+  .risk-assessment-page .advisor-button {
+    transition: none;
+  }
+
+  .risk-assessment-page .primary-button:hover:not(:disabled) {
+    transform: none;
+  }
+}
+
+/* ===== END PHASE 10.5.C.1 ===== */
+
+/* ==================================================
+   PHASE 10.5.C.2 - MODERN FRAUD ASSESSMENT
+   SCOPED PRESENTATION ONLY
+   ================================================== */
+
+.fraud-assessment-page {
+  --fraud-navy: #14213a;
+  --fraud-blue: #2563eb;
+  --fraud-violet: #7c3aed;
+
+  width: 100%;
+  max-width: none;
+  min-width: 0;
+}
+
+/* HEADER */
+
+.fraud-assessment-page .topbar {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+
+  align-items: center;
+  gap: 24px;
+
+  margin-bottom: 28px;
+  padding: 32px 36px;
+
+  border: 1px solid rgba(124, 165, 230, .18);
+  border-radius: 24px;
+
+  background:
+    radial-gradient(
+      circle at 90% 15%,
+      rgba(139, 92, 246, .22),
+      transparent 42%
+    ),
+    linear-gradient(115deg, #14213a, #243862);
+
+  box-shadow: 0 18px 40px rgba(19, 38, 70, .12);
+}
+
+.fraud-assessment-page .topbar::after {
+  content: "";
+  position: absolute;
+
+  right: -90px;
+  bottom: -180px;
+
+  width: 350px;
+  height: 350px;
+
+  border: 1px solid rgba(255, 255, 255, .08);
+  border-radius: 50%;
+
+  pointer-events: none;
+}
+
+.fraud-assessment-page .topbar > * {
+  position: relative;
+  z-index: 1;
+}
+
+.fraud-assessment-page .topbar .eyebrow {
+  color: #baa8ff;
+  font-size: 11px;
+  letter-spacing: .18em;
+}
+
+.fraud-assessment-page .topbar h1 {
+  color: #ffffff;
+
+  font-size: clamp(30px, 3.6vw, 46px);
+  font-weight: 900;
+  letter-spacing: -.045em;
+  line-height: 1.15;
+}
+
+.fraud-assessment-page .topbar .subtitle {
+  color: #b8c9e0;
+
+  max-width: 620px;
+  font-size: 14px;
+  line-height: 1.75;
+}
+
+.fraud-assessment-page .status-badge {
+  flex-shrink: 0;
+
+  padding: 12px 16px;
+
+  border: 1px solid rgba(255,255,255,.18);
+  border-radius: 999px;
+
+  background: rgba(255,255,255,.10);
+  color: #e3efff;
+
+  font-size: 12px;
+  font-weight: 800;
+}
+
+/* MAIN GRID */
+
+.fraud-assessment-page .main-grid {
+  display: grid;
+
+  grid-template-columns:
+    minmax(0, 1.05fr)
+    minmax(0, .95fr);
+
+  align-items: start;
+  gap: 22px;
+}
+
+.fraud-assessment-page .panel {
+  min-width: 0;
+  padding: 28px;
+
+  border: 1px solid #e0e8f3;
+  border-radius: 22px;
+
+  background: #ffffff;
+
+  box-shadow:
+    0 10px 30px rgba(15, 23, 42, .045);
+}
+
+/* PANEL HEADINGS */
+
+.fraud-assessment-page .panel-heading {
+  align-items: center;
+  gap: 16px;
+
+  padding-bottom: 22px;
+  border-bottom: 1px solid #edf2f8;
+}
+
+.fraud-assessment-page .panel-heading .section-label {
+  color: #7c3aed;
+  font-size: 10px;
+  letter-spacing: .16em;
+}
+
+.fraud-assessment-page .panel-heading h2 {
+  color: #14213a;
+  font-size: 21px;
+  font-weight: 800;
+  letter-spacing: -.035em;
+  line-height: 1.35;
+}
+
+.fraud-assessment-page .panel-heading .secondary-button {
+  flex-shrink: 0;
+
+  padding: 10px 16px;
+
+  border: 1px solid #d4dfed;
+  border-radius: 10px;
+
+  background: #f8fbff;
+  color: #334155;
+
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.fraud-assessment-page .panel-heading .secondary-button:hover {
+  background: #f5f3ff;
+  color: #6d28d9;
+}
+
+/* FRAUD FORM */
+
+.fraud-assessment-page .risk-form {
+  padding-top: 25px;
+}
+
+.fraud-assessment-page .form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+
+  gap: 19px 16px;
+}
+
+.fraud-assessment-page .form-grid label {
+  min-width: 0;
+
+  color: #475569;
+  font-size: 12px;
+  font-weight: 800;
+  line-height: 1.5;
+}
+
+.fraud-assessment-page .form-grid input,
+.fraud-assessment-page .form-grid select {
+  width: 100%;
+  min-width: 0;
+  min-height: 49px;
+
+  padding: 11px 13px;
+
+  border: 1px solid #d4dfed;
+  border-radius: 11px;
+
+  background: #fbfdff;
+  color: #14213a;
+
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.fraud-assessment-page .form-grid input:focus,
+.fraud-assessment-page .form-grid select:focus {
+  border-color: #8b5cf6;
+  background: white;
+
+  box-shadow:
+    0 0 0 3px rgba(139, 92, 246, .12);
+}
+
+.fraud-assessment-page .primary-button {
+  min-height: 54px;
+  margin-top: 27px;
+
+  border: none;
+  border-radius: 12px;
+
+  background: linear-gradient(
+    110deg,
+    #5b4ee5,
+    #2875e9
+  );
+
+  color: white;
+
+  font-size: 14px;
+  font-weight: 900;
+
+  box-shadow:
+    0 12px 25px rgba(99, 102, 241, .20);
+}
+
+.fraud-assessment-page .primary-button:hover:not(:disabled) {
+  box-shadow:
+    0 16px 28px rgba(99, 102, 241, .26);
+}
+
+/* MODEL OUTPUT PANEL */
+
+.fraud-assessment-page .results-panel {
+  min-height: 620px;
+}
+
+.fraud-assessment-page .empty-state {
+  min-height: 410px;
+  padding: 20px;
+}
+
+.fraud-assessment-page .empty-icon {
+  width: 76px;
+  height: 76px;
+
+  border-radius: 22px;
+
+  background: linear-gradient(
+    145deg,
+    #f5f3ff,
+    #e9d5ff
+  );
+
+  color: #7c3aed;
+
+  font-size: 22px;
+  font-weight: 900;
+}
+
+.fraud-assessment-page .empty-state h3 {
+  color: #14213a;
+  font-size: 20px;
+  letter-spacing: -.03em;
+}
+
+.fraud-assessment-page .empty-state p {
+  max-width: 350px;
+
+  color: #64748b;
+  font-size: 13px;
+  line-height: 1.75;
+}
+
+/* PREDICTION RESULTS */
+
+.fraud-assessment-page .results-content {
+  gap: 20px;
+  padding-top: 25px;
+}
+
+.fraud-assessment-page .metric-card {
+  min-width: 0;
+  padding: 23px;
+
+  border: 1px solid #e0e8f3;
+  border-radius: 16px;
+
+  background: #fbfdff;
+}
+
+.fraud-assessment-page .metric-card p {
+  margin-bottom: 13px;
+
+  color: #64748b;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.fraud-assessment-page .metric-card strong {
+  display: block;
+
+  color: #14213a;
+
+  font-size: clamp(22px, 2.5vw, 30px);
+  font-weight: 900;
+  letter-spacing: -.04em;
+  font-variant-numeric: tabular-nums;
+
+  overflow-wrap: anywhere;
+}
+
+.fraud-assessment-page .metric-card span {
+  color: #8795a9;
+  font-size: 12px;
+  line-height: 1.65;
+}
+
+.fraud-assessment-page .primary-metric {
+  padding: 26px;
+
+  border: 1px solid #ddd6fe;
+  border-radius: 18px;
+
+  background: linear-gradient(
+    125deg,
+    #f5f3ff,
+    #fbfaff
+  );
+}
+
+.fraud-assessment-page .primary-metric strong {
+  color: #6d28d9;
+  font-size: clamp(38px, 4vw, 55px);
+}
+
+/* INVESTIGATION PRIORITY */
+
+.fraud-assessment-page .decision-card {
+  gap: 16px;
+  padding: 21px;
+  border-radius: 15px;
+}
+
+.fraud-assessment-page .decision-card strong {
+  display: block;
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+.fraud-assessment-page .decision-value {
+  font-size: 18px;
+  font-weight: 900;
+  font-variant-numeric: tabular-nums;
+}
+
+.fraud-assessment-page .decision-card.attention {
+  background: #fff7ed;
+  border: 1px solid #fed7aa;
+  color: #9a3412;
+}
+
+.fraud-assessment-page .decision-card.normal {
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  color: #166534;
+}
+
+/* HUMAN REVIEW NOTICE */
+
+.fraud-assessment-page .model-note {
+  padding: 20px;
+
+  border: 1px solid #e2eaf5;
+  border-left: 3px solid #7c3aed;
+  border-radius: 15px;
+
+  background: #f8fafc;
+}
+
+.fraud-assessment-page .model-note strong {
+  color: #14213a;
+  font-size: 13px;
+}
+
+.fraud-assessment-page .model-note p {
+  color: #64748b;
+  font-size: 12px;
+  line-height: 1.75;
+}
+
+/* AI ADVISOR */
+
+.fraud-assessment-page .advisor-section {
+  padding-top: 25px;
+  border-top: 1px solid #edf2f8;
+}
+
+.fraud-assessment-page .advisor-heading .section-label {
+  color: #7c3aed;
+  font-size: 10px;
+  letter-spacing: .16em;
+}
+
+.fraud-assessment-page .advisor-heading h3 {
+  color: #14213a;
+  font-size: 19px;
+  letter-spacing: -.035em;
+}
+
+.fraud-assessment-page .advisor-button {
+  min-height: 51px;
+
+  border: 1px solid #ddd6fe;
+  border-radius: 12px;
+
+  background: #f5f3ff;
+  color: #6d28d9;
+
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.fraud-assessment-page .advisor-button:hover:not(:disabled) {
+  background: #ede9fe;
+}
+
+.fraud-assessment-page .advisor-card {
+  padding: 24px;
+
+  border: 1px solid #ddd6fe;
+  border-radius: 17px;
+
+  background: linear-gradient(
+    145deg,
+    #f8f6ff,
+    #ffffff
+  );
+}
+
+.fraud-assessment-page .advisor-card h3 {
+  color: #4c1d95;
+  font-size: 19px;
+}
+
+.fraud-assessment-page .advisor-summary {
+  color: #475569;
+  font-size: 13px;
+  line-height: 1.8;
+}
+
+.fraud-assessment-page .advisor-card li {
+  color: #334155;
+  font-size: 13px;
+  line-height: 1.75;
+}
+
+.fraud-assessment-page .advisor-disclaimer {
+  padding: 17px;
+
+  border-left: 3px solid #7c3aed;
+  border-radius: 11px;
+
+  background: #f5f3ff;
+}
+
+.fraud-assessment-page .advisor-disclaimer strong {
+  color: #4c1d95;
+}
+
+.fraud-assessment-page .advisor-error {
+  border: 1px solid #fed7aa;
+  border-radius: 12px;
+  background: #fff7ed;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 1250px) {
+  .fraud-assessment-page .main-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .fraud-assessment-page .results-panel {
+    min-height: 0;
+  }
+
+  .fraud-assessment-page .empty-state {
+    min-height: 290px;
+  }
+}
+
+@media (max-width: 650px) {
+  .fraud-assessment-page .topbar {
+    flex-direction: column;
+    align-items: stretch;
+
+    padding: 27px 22px;
+    border-radius: 20px;
+  }
+
+  .fraud-assessment-page .topbar .status-badge {
+    align-self: flex-start;
+  }
+
+  .fraud-assessment-page .panel {
+    padding: 20px;
+  }
+
+  .fraud-assessment-page .form-grid,
+  .fraud-assessment-page .metric-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .fraud-assessment-page .panel-heading h2 {
+    font-size: 18px;
+  }
+
+  .fraud-assessment-page .primary-metric strong {
+    font-size: 38px;
+  }
+
+  .fraud-assessment-page .decision-card {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fraud-assessment-page .primary-button,
+  .fraud-assessment-page .advisor-button {
+    transition: none;
+  }
+
+  .fraud-assessment-page .primary-button:hover:not(:disabled) {
+    transform: none;
+  }
+}
+
+/* ===== END PHASE 10.5.C.2 ===== */

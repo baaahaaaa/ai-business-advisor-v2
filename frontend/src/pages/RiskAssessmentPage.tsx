@@ -189,7 +189,7 @@ function RiskAssessmentPage() {
 
 
   return (
-    <div className="app-shell">
+    <div className="app-shell risk-assessment-page">
 
       <header className="topbar">
 
