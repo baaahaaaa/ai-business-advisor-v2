@@ -8,6 +8,10 @@ The system is designed to support human decision-making. Machine-learning models
 
 ---
 
+## Portfolio verification
+
+Before citing this project as a deployed application, check the [portfolio readiness checklist](docs/PORTFOLIO_READINESS.md). You can also run the read-only PowerShell script `scripts/check-cloud-health.ps1` to check the public endpoints; an HTTP health check does not replace functional tests.
+
 ## Live Demo
 
 AI Business Advisor V2 is deployed as a complete cloud stack on Render.
