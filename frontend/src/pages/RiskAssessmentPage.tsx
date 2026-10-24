@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "../App.css";
+import { useAuth } from "../auth/useAuth";
 
 import {
   assessInsuranceRisk,
@@ -28,6 +29,8 @@ const initialForm: InsuranceRiskRequest = {
 
 
 function RiskAssessmentPage() {
+
+  const { accessToken } = useAuth();
 
   const [form, setForm] =
     useState<InsuranceRiskRequest>(initialForm);
@@ -91,8 +94,12 @@ function RiskAssessmentPage() {
 
     try {
 
+      if (!accessToken) {
+        throw new Error("Session expired. Sign in again.");
+      }
+
       const response =
-        await assessInsuranceRisk(form);
+        await assessInsuranceRisk(form, accessToken);
 
       setResult(response);
 
@@ -125,6 +132,10 @@ function RiskAssessmentPage() {
 
     try {
 
+      if (!accessToken) {
+        throw new Error("Session expired. Sign in again.");
+      }
+
       const response =
         await explainRisk({
           claimProbability:
@@ -144,7 +155,7 @@ function RiskAssessmentPage() {
 
           expectedClaimCount:
             result.expectedClaimCount,
-        });
+        }, accessToken);
 
       setAdvisorResult(response);
 
@@ -178,7 +189,7 @@ function RiskAssessmentPage() {
 
 
   return (
-    <div className="app-shell">
+    <div className="app-shell risk-assessment-page">
 
       <header className="topbar">
 

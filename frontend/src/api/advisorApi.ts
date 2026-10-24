@@ -27,7 +27,8 @@ export interface FraudAdvisorRequest {
 
 
 export async function explainRisk(
-  request: RiskAdvisorRequest
+  request: RiskAdvisorRequest,
+  accessToken: string
 ): Promise<AdvisorResponse> {
 
   const response = await fetch(
@@ -36,6 +37,7 @@ export async function explainRisk(
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken}`,
       },
       body: JSON.stringify(request),
     }
@@ -52,7 +54,8 @@ export async function explainRisk(
 
 
 export async function explainFraud(
-  request: FraudAdvisorRequest
+  request: FraudAdvisorRequest,
+  accessToken: string
 ): Promise<AdvisorResponse> {
 
   const response = await fetch(
@@ -61,6 +64,7 @@ export async function explainFraud(
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken}`,
       },
       body: JSON.stringify(request),
     }

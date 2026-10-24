@@ -6,6 +6,9 @@ import com.aibusinessadvisor.backend.risk.service.InsuranceRiskService;
 
 import jakarta.validation.Valid;
 
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.jwt.Jwt;
+
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,7 +19,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/risk")
 public class InsuranceRiskController {
 
-    private final InsuranceRiskService insuranceRiskService;
+    private final InsuranceRiskService
+            insuranceRiskService;
 
 
     public InsuranceRiskController(
@@ -33,11 +37,17 @@ public class InsuranceRiskController {
 
             @Valid
             @RequestBody
-            InsuranceRiskRequest request
+            InsuranceRiskRequest request,
+
+            @AuthenticationPrincipal
+            Jwt jwt
 
     ) {
 
         return insuranceRiskService
-                .assess(request);
+                .assess(
+                        request,
+                        jwt.getSubject()
+                );
     }
 }

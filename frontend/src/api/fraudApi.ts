@@ -31,7 +31,8 @@ export interface FraudAssessmentResponse {
 }
 
 export async function assessFraud(
-  request: FraudAssessmentRequest
+  request: FraudAssessmentRequest,
+  accessToken: string
 ): Promise<FraudAssessmentResponse> {
 
   const response = await fetch(
@@ -40,6 +41,7 @@ export async function assessFraud(
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken}`,
       },
       body: JSON.stringify(request),
     }

@@ -68,6 +68,20 @@ jobs:
         run: |
           printf 'OPENAI_API_KEY=\n' > ai-service/.env
 
+      - name: Prepare ephemeral E2E admin credentials
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          admin_email='e2e-admin@example.invalid'
+          admin_password="$(openssl rand -hex 24)"
+
+          printf '::add-mask::%s\n' "$admin_password"
+          printf 'APP_ADMIN_EMAIL=%s\n' "$admin_email" >> "$GITHUB_ENV"
+          printf 'APP_ADMIN_PASSWORD=%s\n' "$admin_password" >> "$GITHUB_ENV"
+
+          echo "Ephemeral CI admin credentials prepared."
+
       - name: Validate Docker Compose configuration
         run: docker compose config --quiet
 
@@ -172,6 +186,41 @@ jobs:
             > /dev/null
 
           echo "Frontend responded successfully."
+
+      - name: Authenticate E2E admin and export JWT
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+
+          $body = @{
+            email = $env:APP_ADMIN_EMAIL
+            password = $env:APP_ADMIN_PASSWORD
+          } | ConvertTo-Json -Compress
+
+          $session = Invoke-RestMethod `
+            -Uri 'http://127.0.0.1:8081/api/auth/login' `
+            -Method Post `
+            -ContentType 'application/json' `
+            -Body $body `
+            -TimeoutSec 20
+
+          if (
+            [string]::IsNullOrWhiteSpace($session.accessToken) -or
+            $session.user.role -ne 'ADMIN' -or
+            $session.user.enabled -ne $true
+          ) {
+            throw 'CI admin authentication failed.'
+          }
+
+          Write-Host "::add-mask::$($session.accessToken)"
+
+          Add-Content `
+            -Path $env:GITHUB_ENV `
+            -Value "BACKEND_ACCESS_TOKEN=$($session.accessToken)" `
+            -Encoding utf8
+
+          Write-Host '[PASS] E2E admin authenticated.'
+          Write-Host '[PASS] JWT exported securely.'
 
       - name: Run ML integration tests
         shell: pwsh

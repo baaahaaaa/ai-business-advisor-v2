@@ -1,5 +1,7 @@
 package com.aibusinessadvisor.backend.risk.service;
 
+import com.aibusinessadvisor.backend.assessment.service.AssessmentPersistenceService;
+
 import com.aibusinessadvisor.backend.ml.client.MlInferenceClient;
 import com.aibusinessadvisor.backend.ml.dto.ClaimFrequencyMlResponse;
 import com.aibusinessadvisor.backend.ml.dto.ClaimOccurrenceMlResponse;
@@ -16,18 +18,27 @@ public class InsuranceRiskService {
 
     private final MlInferenceClient mlInferenceClient;
 
+    private final AssessmentPersistenceService
+            assessmentPersistenceService;
+
 
     public InsuranceRiskService(
-            MlInferenceClient mlInferenceClient
+            MlInferenceClient mlInferenceClient,
+            AssessmentPersistenceService
+                    assessmentPersistenceService
     ) {
 
         this.mlInferenceClient =
                 mlInferenceClient;
+
+        this.assessmentPersistenceService =
+                assessmentPersistenceService;
     }
 
 
     public InsuranceRiskAssessmentResponse assess(
-            InsuranceRiskRequest request
+            InsuranceRiskRequest request,
+            String userEmail
     ) {
 
         InsuranceRiskMlRequest mlRequest =
@@ -59,19 +70,24 @@ public class InsuranceRiskService {
                         );
 
 
-        return new InsuranceRiskAssessmentResponse(
+        InsuranceRiskAssessmentResponse response =
+                new InsuranceRiskAssessmentResponse(
+                        occurrence.claim_probability(),
+                        occurrence.technical_threshold(),
+                        occurrence.technical_risk_flag(),
+                        frequency.predicted_frequency(),
+                        frequency.exposure(),
+                        frequency.expected_claim_count()
+                );
 
-                occurrence.claim_probability(),
 
-                occurrence.technical_threshold(),
+        assessmentPersistenceService
+                .recordRisk(
+                        userEmail,
+                        response
+                );
 
-                occurrence.technical_risk_flag(),
 
-                frequency.predicted_frequency(),
-
-                frequency.exposure(),
-
-                frequency.expected_claim_count()
-        );
+        return response;
     }
 }

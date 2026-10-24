@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - master
+      - feature/auth-admin-dashboard
 
   pull_request:
     branches:
@@ -17,6 +18,24 @@ jobs:
   backend:
     name: Backend - Maven
     runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:17-alpine
+
+        env:
+          POSTGRES_DB: ai_business_advisor
+          POSTGRES_USER: ai_business_advisor
+          POSTGRES_PASSWORD: ai_business_advisor_ci
+
+        ports:
+          - 5432:5432
+
+        options: >-
+          --health-cmd "pg_isready -U ai_business_advisor -d ai_business_advisor"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
 
     defaults:
       run:
@@ -37,6 +56,13 @@ jobs:
         run: chmod +x mvnw
 
       - name: Run backend tests
+        env:
+          DATABASE_URL: jdbc:postgresql://127.0.0.1:5432/ai_business_advisor
+          DATABASE_USERNAME: ai_business_advisor
+          DATABASE_PASSWORD: ai_business_advisor_ci
+          JWT_SECRET: ai-business-advisor-ci-jwt-secret-2026-minimum-32-bytes
+          JWT_EXPIRATION_SECONDS: "3600"
+          JWT_ISSUER: ai-business-advisor
         run: ./mvnw test -B
 
 

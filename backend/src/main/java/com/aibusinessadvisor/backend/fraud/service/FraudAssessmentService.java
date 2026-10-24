@@ -1,5 +1,7 @@
 package com.aibusinessadvisor.backend.fraud.service;
 
+import com.aibusinessadvisor.backend.assessment.service.AssessmentPersistenceService;
+
 import com.aibusinessadvisor.backend.fraud.dto.FraudAssessmentRequest;
 import com.aibusinessadvisor.backend.fraud.dto.FraudAssessmentResponse;
 
@@ -15,63 +17,51 @@ public class FraudAssessmentService {
 
     private final MlInferenceClient mlInferenceClient;
 
+    private final AssessmentPersistenceService
+            assessmentPersistenceService;
+
 
     public FraudAssessmentService(
-            MlInferenceClient mlInferenceClient
+            MlInferenceClient mlInferenceClient,
+            AssessmentPersistenceService
+                    assessmentPersistenceService
     ) {
 
         this.mlInferenceClient =
                 mlInferenceClient;
+
+        this.assessmentPersistenceService =
+                assessmentPersistenceService;
     }
 
 
     public FraudAssessmentResponse assess(
-            FraudAssessmentRequest request
+            FraudAssessmentRequest request,
+            String userEmail
     ) {
 
         FraudMlRequest mlRequest =
                 new FraudMlRequest(
-
                         request.age(),
-
                         request.deductible(),
-
                         request.weekOfMonth(),
-
                         request.weekOfMonthClaimed(),
-
                         request.driverRating(),
-
                         request.month(),
-
                         request.dayOfWeek(),
-
                         request.make(),
-
                         request.accidentArea(),
-
                         request.dayOfWeekClaimed(),
-
                         request.monthClaimed(),
-
                         request.sex(),
-
                         request.maritalStatus(),
-
                         request.vehicleCategory(),
-
                         request.vehiclePrice(),
-
                         request.pastNumberOfClaims(),
-
                         request.ageOfVehicle(),
-
                         request.ageOfPolicyHolder(),
-
                         request.agentType(),
-
                         request.numberOfCars(),
-
                         request.basePolicy()
                 );
 
@@ -83,13 +73,21 @@ public class FraudAssessmentService {
                         );
 
 
-        return new FraudAssessmentResponse(
+        FraudAssessmentResponse response =
+                new FraudAssessmentResponse(
+                        prediction.fraud_probability(),
+                        prediction.technical_threshold(),
+                        prediction.investigation_flag()
+                );
 
-                prediction.fraud_probability(),
 
-                prediction.technical_threshold(),
+        assessmentPersistenceService
+                .recordFraud(
+                        userEmail,
+                        response
+                );
 
-                prediction.investigation_flag()
-        );
+
+        return response;
     }
 }
